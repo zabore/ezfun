@@ -1,0 +1,9 @@
+---
+title: "About"
+---
+
+### About this site
+
+Sometimes you need to say a bit about the site -- how it was made, where it's hosted, where the source code can be found. 
+
+If this is for a project or analysis, I recommend giving some details about the R package versions that you used to create the content.

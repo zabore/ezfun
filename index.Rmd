@@ -1,7 +1,5 @@
 ---
-title: "Holy cow!"
+title: "ezfun"
 ---
 
-### I have a webpage!
-
-And I can put all kinds of stuff on it!
+This is the webpage for the `ezfun` package.

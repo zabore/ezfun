@@ -3,3 +3,5 @@ title: "ezfun"
 ---
 
 This is the webpage for the `ezfun` package.
+
+A link to the documentation is [here](https://github.com/zabore/ezfun/blob/master/ezfun.pdf).

@@ -66,6 +66,7 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
                                                          vals[[2]])[j], 2), ")")
             }
 
+
             form <- as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
                                       ") + (1 | ", re, ")"))
 
@@ -100,9 +101,11 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
               mats[[k]][2, j + 2] <- sapply(x, "[", "NA's")[j]
             }
 
+            form <- as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
+                                      ") + (1 | ", re, ")"))
+
             mats[[k]][1, ncol(mats[[k]])] <- tryCatch(
-              round(summary(glmer(dat[, byvar] ~ scale(dat[, contvars[[k]]]) +
-                                    (1 | dat[, re]),
+              round(summary(glmer(form, data = dat,
                                   family = binomial))$coefficients[2, 4], 3),
               warning = function(w) {return(NA)},
               error = function(e) {return(NA)})
@@ -166,7 +169,7 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
           form0 <- as.formula(paste0(byvar, " ~ 1 + (1 | ", re, ")"))
           form2 <- as.formula(paste0(byvar, " ~ factor(", catvars[[k]],
-                                    ") + (1 | ", re, ")"))
+                                     ") + (1 | ", re, ")"))
 
           mats[[k + nc]][1, ncol(mats[[k + nc]])] <- tryCatch(
             round(anova(glmer(form0, data = dat[!is.na(dat[, catvars[[k]]]), ],

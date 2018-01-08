@@ -24,4 +24,3 @@ will have dates in character format and therefore \code{todate} will not apply.
 \author{
 Emily C Zabor \email{zabore@mskcc.org}
 }
-

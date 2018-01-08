@@ -19,4 +19,3 @@ Returns a p-value rounded to 3 digits or "<.001" if the p-value is
 \author{
 Emily C Zabor \email{zabore@mskcc.org}
 }
-

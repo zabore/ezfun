@@ -16,5 +16,6 @@ Imports:
     aod,
     cmprsk,
     clinfun,
-    shiny
-RoxygenNote: 5.0.1
+    shiny,
+    lme4
+RoxygenNote: 6.0.1

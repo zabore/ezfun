@@ -17,4 +17,3 @@ number of patients indicating the optimal and minimax results.
 function from the \code{clinfun} package. No arguments need to be passed to
 the function.
 }
-

@@ -19,4 +19,3 @@ resulting HR (95\% CI) and p-values into a table
 \author{
 Emily C Zabor \email{zabore@mskcc.org}
 }
-

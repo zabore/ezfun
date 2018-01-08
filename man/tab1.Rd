@@ -49,4 +49,3 @@ another variable.
 \author{
 Emily C Zabor \email{zabore@mskcc.org}
 }
-

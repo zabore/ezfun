@@ -30,4 +30,3 @@ of each categorical variable. Computes Kruskall-Wallis p-values.
 \author{
 Emily C Zabor \email{zabore@mskcc.org}
 }
-

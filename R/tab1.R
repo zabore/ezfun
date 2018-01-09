@@ -83,13 +83,16 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
       for(k in 1:length(catvars)) {
 
+        if(is.factor(dat[, catvars[[k]]]) == TRUE) {dat[, catvars[[k]]] <-
+          factor(dat[, catvars[[k]]])}
+
         mats[[k + nc]] <- matrix('',
-                                 nrow = nlevels(as.factor(
+                                 nrow = length(unique(
                                    dat[, catvars[[k]]])) + 1,
                                  ncol = 2)
         y1 <- table(dat[, catvars[[k]]], useNA = 'ifany')
         y2 <- prop.table(y1)
-        for(i in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+        for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
           mats[[k + nc]][i + 1, 2] <- paste0(y1[i], " (",
                                              round(y2[i] * 100, 1), ")")
@@ -100,7 +103,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
         mats[[k + nc]][1, 1] <- paste(catvars[k])
         if(any(is.na(dat[, catvars[[k]]])) == FALSE) {
 
-          for(l in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+          for(l in 1:length(unique(dat[, catvars[[k]]]))) {
 
             mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(
               dat[, catvars[[k]]]))[l])
@@ -110,13 +113,13 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
         else if(any(is.na(dat[, catvars[[k]]])) == TRUE) {
 
-          for(l in 1:(nlevels(as.factor(dat[, catvars[[k]]])) - 1)) {
+          for(l in 1:(length(unique(dat[, catvars[[k]]])) - 1)) {
 
             mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(
               dat[, catvars[[k]]]))[l])
           }
 
-          mats[[k + nc]][nlevels(as.factor(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
+          mats[[k + nc]][length(unique(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
         }
 
       }
@@ -198,8 +201,11 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
         for(k in 1:length(catvars)) {
 
+          if(is.factor(dat[, catvars[[k]]]) == TRUE) {dat[, catvars[[k]]] <-
+            factor(dat[, catvars[[k]]])}
+
           mats[[k + nc]] <- matrix('',
-                                   nrow = nlevels(as.factor(dat[, catvars[[k]]])) + 1,
+                                   nrow = length(unique(dat[, catvars[[k]]])) + 1,
                                    ncol = length(unique(dat[, byvar])) + 2)
           y1 <- table(dat[, catvars[[k]]], useNA = 'ifany')
           x1 <- table(dat[, catvars[[k]]], dat[, byvar], useNA = 'ifany')
@@ -210,7 +216,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             x2 <- prop.table(x1, 2)
             for(j in 1:length(unique(dat[, byvar]))) {
 
-              for(i in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+              for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
                 mats[[k + nc]][i + 1, 2] <- paste0(y1[i], " (",
                                                    round(y2[i] * 100, 1), ")")
@@ -227,7 +233,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             x2 <- prop.table(x1, 1)
             for(j in 1:length(unique(dat[, byvar]))) {
 
-              for(i in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+              for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
                 mats[[k + nc]][i + 1, 2] <- y1[i]
                 mats[[k + nc]][i + 1, j + 2] <- paste0(x1[i, j], " (",
@@ -243,7 +249,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
           mats[[k + nc]][1, 1] <- paste(catvars[k])
           if(any(is.na(dat[, catvars[[k]]])) == FALSE) {
 
-            for(l in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+            for(l in 1:length(unique(dat[, catvars[[k]]]))) {
 
               mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
             }
@@ -252,12 +258,12 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
           else if(any(is.na(dat[, catvars[[k]]])) == TRUE) {
 
-            for(l in 1:(nlevels(as.factor(dat[, catvars[[k]]])) - 1)) {
+            for(l in 1:(length(unique(dat[, catvars[[k]]])) - 1)) {
 
               mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
             }
 
-            mats[[k + nc]][nlevels(as.factor(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
+            mats[[k + nc]][length(unique(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
           }
 
         }
@@ -352,8 +358,11 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
         for(k in 1:length(catvars)) {
 
+          if(is.factor(dat[, catvars[[k]]]) == TRUE) {dat[, catvars[[k]]] <-
+            factor(dat[, catvars[[k]]])}
+
           mats[[k + nc]] <- matrix('',
-                                   nrow = nlevels(as.factor(dat[, catvars[[k]]])) + 1,
+                                   nrow = length(unique(dat[, catvars[[k]]])) + 1,
                                    ncol = length(unique(dat[, byvar])) + 3)
           y1 <- table(dat[, catvars[[k]]], useNA = 'ifany')
           x1 <- table(dat[, catvars[[k]]], dat[, byvar], useNA = 'ifany')
@@ -363,7 +372,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             x2 <- prop.table(x1, 2)
             for(j in 1:length(unique(dat[, byvar]))) {
 
-              for(i in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+              for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
                 mats[[k + nc]][i + 1, 2] <- paste0(y1[i], " (",
                                                    round(y2[i] * 100, 1), ")")
@@ -381,7 +390,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             x2 <- prop.table(x1, 1)
             for(j in 1:length(unique(dat[, byvar]))) {
 
-              for(i in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+              for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
                 mats[[k + nc]][i + 1, 2] <- y1[i]
                 mats[[k + nc]][i + 1, j + 2] <- paste(x1[i, j], " (",
@@ -414,7 +423,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
           mats[[k + nc]][1, 1] <- paste(catvars[k])
           if(any(is.na(dat[, catvars[[k]]])) == FALSE) {
 
-            for(l in 1:nlevels(as.factor(dat[, catvars[[k]]]))) {
+            for(l in 1:length(unique(dat[, catvars[[k]]]))) {
 
               mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
             }
@@ -423,12 +432,12 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
           else if(any(is.na(dat[, catvars[[k]]])) == TRUE) {
 
-            for(l in 1:(nlevels(as.factor(dat[, catvars[[k]]])) - 1)) {
+            for(l in 1:(length(unique(dat[, catvars[[k]]])) - 1)) {
 
               mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
             }
 
-            mats[[k + nc]][nlevels(as.factor(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
+            mats[[k + nc]][length(unique(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
           }
 
         }

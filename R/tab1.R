@@ -475,13 +475,13 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
         mats <- do.call(rbind, mats)
         colnames(mats)[1] <- '**Variable**'
-        colnames(mats)[2] <- paste0('**Overall** (n = ', nrow(dat), ")")
+        colnames(mats)[2] <- paste0('**Overall (n = ', nrow(dat), ")**")
         colnames(mats)[ncol(mats)] <- '**p-value**'
         mats$"**p-value**"[mats$"**p-value**" == '0'] <- "<.001"
         for(m in 1:length(unique(dat[, byvar]))) {
           colnames(mats)[m + 2] <- paste0(
-            "**", levels(as.factor(dat[, byvar]))[m], "** (n = ",
-            table(dat[, byvar], useNA = 'ifany')[m], ")")
+            "**", levels(as.factor(dat[, byvar]))[m], " (n = ",
+            table(dat[, byvar], useNA = 'ifany')[m], ")**")
         }
 
         return(mats)

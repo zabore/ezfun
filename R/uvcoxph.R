@@ -23,6 +23,8 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
 
   dat <- dat[!is.na(dat[, time]) & !is.na(dat[, event]), ]
 
+  dat <- as.data.frame(dat)
+
   mats <- vector('list', length(contvars) + length(catvars))
   if(!is.null(contvars)) {
 
@@ -32,9 +34,10 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
       tryCatch({
 
         m1 <- coxph(Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]])
-        mats[[k]][1, 2] <- paste0(round(summary(m1)$conf.int[, "exp(coef)"], 2), " (",
-                                  round(summary(m1)$conf.int[, "lower .95"], 2), "-",
-                                  round(summary(m1)$conf.int[, "upper .95"], 2), ")")
+        mats[[k]][1, 2] <- paste0(
+          round(summary(m1)$conf.int[, "exp(coef)"], 2), " (",
+          round(summary(m1)$conf.int[, "lower .95"], 2), "-",
+          round(summary(m1)$conf.int[, "upper .95"], 2), ")")
         mats[[k]][1, 3] <- round(summary(m1)$coef[, 'Pr(>|z|)'], 3)
       }, warning = function(w) {
         print(str(w$message))
@@ -48,7 +51,7 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
 
       mats[[k]] <- as.data.frame(mats[[k]], stringsAsFactors = FALSE)
       mats[[k]][, 1] <- as.character(mats[[k]][, 1])
-      mats[[k]][, 1]<- paste(contvars[k])
+      mats[[k]][, 1]<- paste0("**", contvars[k], "**")
     }
 
   }
@@ -57,11 +60,15 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
 
     for(k in 1:length(catvars)) {
 
-      mats[[k + length(contvars)]] <- matrix(' ', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
+      mats[[k + length(contvars)]] <- matrix(
+        ' ', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
       tryCatch({
 
-        m2 <- coxph(Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]]))
-        p1 <- wald.test(m2$var, m2$coef, Terms = 1:(length(levels(factor(dat[, catvars[[k]]]))) - 1))
+        m2 <- coxph(Surv(dat[, time], dat[, event]) ~
+                      factor(dat[, catvars[[k]]]))
+        p1 <- wald.test(
+          m2$var, m2$coef,
+          Terms = 1:(length(levels(factor(dat[, catvars[[k]]]))) - 1))
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
 
           if(i == 1) {
@@ -71,12 +78,10 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
 
           else if(i > 1) {
 
-            mats[[k + length(contvars)]][i + 1, 2] <- paste0(round(summary(m2)$conf.int[i - 1, "exp(coef)"], 2),
-                                                             " (",
-                                                             round(summary(m2)$conf.int[i - 1, "lower .95"], 2),
-                                                             "-",
-                                                             round(summary(m2)$conf.int[i - 1, "upper .95"], 2),
-                                                             ")")
+            mats[[k + length(contvars)]][i + 1, 2] <- paste0(
+              round(summary(m2)$conf.int[i - 1, "exp(coef)"], 2), " (",
+              round(summary(m2)$conf.int[i - 1, "lower .95"], 2), "-",
+              round(summary(m2)$conf.int[i - 1, "upper .95"], 2), ")")
           }
 
         }
@@ -84,28 +89,33 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
         mats[[k + length(contvars)]][1, 3] <- round(p1$result$chi2[3], 3)
       }, warning = function(w) {
         print(w$message)
-        mats[[k + length(contvars)]][2:length(levels(factor(dat[, catvars[[k]]]))), 2] <- NA
+        mats[[k + length(contvars)]][2:length(
+          levels(factor(dat[, catvars[[k]]]))), 2] <- NA
         mats[[k + length(contvars)]][1, 3] <- NA
       }, error = function(e) {
         print(e$message)
-        mats[[k + length(contvars)]][2:length(levels(factor(dat[, catvars[[k]]]))), 2] <- NA
+        mats[[k + length(contvars)]][2:length(
+          levels(factor(dat[, catvars[[k]]]))), 2] <- NA
         mats[[k + length(contvars)]][1, 3] <- NA
       })
 
       for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
 
-        mats[[k + length(contvars)]][i + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[i])
+        mats[[k + length(contvars)]][i + 1, 1] <- paste(
+          levels(as.factor(dat[, catvars[[k]]]))[i])
       }
 
-      mats[[k + length(contvars)]] <- as.data.frame(mats[[k + length(contvars)]], stringsAsFactors = FALSE)
-      mats[[k + length(contvars)]][, 1] <- as.character(mats[[k + length(contvars)]][, 1])
-      mats[[k + length(contvars)]][1, 1]<- paste(catvars[k])
+      mats[[k + length(contvars)]] <- as.data.frame(
+        mats[[k + length(contvars)]], stringsAsFactors = FALSE)
+      mats[[k + length(contvars)]][, 1] <- as.character(
+        mats[[k + length(contvars)]][, 1])
+      mats[[k + length(contvars)]][1, 1]<- paste("**", catvars[k], "**")
     }
 
   }
 
   mats <- do.call(rbind, mats)
-  colnames(mats) <- c(' ', 'HR (95% CI)', 'p-value')
+  colnames(mats) <- c('**Variable**', '**HR (95% CI)**', '**p-value**')
   mats$`p-value`[mats$`p-value` == '0'] <- "<.001"
   return(mats)
 }

@@ -31,6 +31,8 @@
 tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
                     spread = "range") {
 
+  dat <- as.data.frame(dat)
+
   library(lme4)
 
   if(spread == "range") vals <- list("Min.", "Max.") else
@@ -58,14 +60,11 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
               mats[[k]][1, 2] <- paste0(y["Median"], " (",
                                         y[vals[[1]]], ", ",
                                         y[vals[[2]]], ")")
-              mats[[k]][1, j + 2] <- paste0(round(sapply(x, "[",
-                                                         "Median")[j], 2), " (",
-                                            round(sapply(x, "[",
-                                                         vals[[1]])[j], 2), ", ",
-                                            round(sapply(x, "[",
-                                                         vals[[2]])[j], 2), ")")
+              mats[[k]][1, j + 2] <- paste0(
+                round(sapply(x, "[", "Median")[j], 2), " (",
+                round(sapply(x, "[", vals[[1]])[j], 2), ", ",
+                round(sapply(x, "[", vals[[2]])[j], 2), ")")
             }
-
 
             form <- as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
                                       ") + (1 | ", re, ")"))
@@ -78,12 +77,13 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
             mats[[k]] <- as.data.frame(mats[[k]], stringsAsFactors = FALSE)
             mats[[k]][, 1] <- as.character(mats[[k]][, 1])
-            mats[[k]][1, 1] <- paste(contvars[k])
+            mats[[k]][1, 1] <- paste0("**", contvars[k], "**")
           }
 
           else if(anyNA(dat[,contvars[[k]]]) == TRUE) {
 
-            mats[[k]] <- matrix(NA, nrow = 2, ncol = length(unique(dat[, byvar])) + 3)
+            mats[[k]] <- matrix(NA, nrow = 2,
+                                ncol = length(unique(dat[, byvar])) + 3)
             y <- round(summary(dat[, contvars[[k]]]), 2)
             x <- tapply(dat[, contvars[[k]]], dat[, byvar], summary)
             for(j in 1:length(unique(dat[, byvar]))) {
@@ -92,12 +92,10 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
                                         y[vals[[1]]], ", ",
                                         y[vals[[2]]], ")")
               mats[[k]][2, 2] <- y["NA's"]
-              mats[[k]][1, j + 2] <- paste0(round(sapply(x, "[" ,
-                                                         "Median")[j], 2), " (",
-                                            round(sapply(x, "[",
-                                                         vals[[1]])[j], 2), ", ",
-                                            round(sapply(x, "[",
-                                                         vals[[2]])[j], 2), ")")
+              mats[[k]][1, j + 2] <- paste0(
+                round(sapply(x, "[" , "Median")[j], 2), " (",
+                round(sapply(x, "[", vals[[1]])[j], 2), ", ",
+                round(sapply(x, "[", vals[[2]])[j], 2), ")")
               mats[[k]][2, j + 2] <- sapply(x, "[", "NA's")[j]
             }
 
@@ -112,9 +110,10 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
             mats[[k]] <- as.data.frame(mats[[k]], stringsAsFactors = FALSE)
             mats[[k]][, 1] <- as.character(mats[[k]][, 1])
-            mats[[k]][1, 1] <- paste(contvars[k])
+            mats[[k]][1, 1] <- paste0("**", contvars[k], "**")
             mats[[k]][2, 1] <- "N missing"
-            mats[[k]][, ncol(mats[[k]])] <- as.character(mats[[k]][, ncol(mats[[k]])])
+            mats[[k]][, ncol(mats[[k]])] <- as.character(
+              mats[[k]][, ncol(mats[[k]])])
             mats[[k]][2, ncol(mats[[k]])] <- ''
           }
 
@@ -126,9 +125,9 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
         for(k in 1:length(catvars)) {
 
-          mats[[k + nc]] <- matrix('',
-                                   nrow = length(unique(dat[, catvars[[k]]])) + 1,
-                                   ncol = length(unique(dat[, byvar])) + 3)
+          mats[[k + nc]] <- matrix(
+            '', nrow = length(unique(dat[, catvars[[k]]])) + 1,
+            ncol = length(unique(dat[, byvar])) + 3)
           y1 <- table(dat[, catvars[[k]]], useNA = 'ifany')
           x1 <- table(dat[, catvars[[k]]], dat[, byvar], useNA = 'ifany')
           if(col == TRUE) {
@@ -139,11 +138,10 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
               for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
-                mats[[k + nc]][i + 1, 2] <- paste0(y1[i], " (",
-                                                   round(y2[i] * 100, 1), ")")
-                mats[[k + nc]][i + 1, j + 2] <- paste(x1[i, j], " (",
-                                                      round(x2[i, j] * 100, 1), ")",
-                                                      sep = '')
+                mats[[k + nc]][i + 1, 2] <- paste0(
+                  y1[i], " (", round(y2[i] * 100, 1), ")")
+                mats[[k + nc]][i + 1, j + 2] <- paste(
+                  x1[i, j], " (", round(x2[i, j] * 100, 1), ")", sep = '')
               }
 
             }
@@ -158,9 +156,8 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
               for(i in 1:length(unique(dat[, catvars[[k]]]))) {
 
                 mats[[k + nc]][i + 1, 2] <- y1[i]
-                mats[[k + nc]][i + 1, j + 2] <- paste(x1[i, j], " (",
-                                                      round(x2[i, j] * 100, 1), ")",
-                                                      sep = '')
+                mats[[k + nc]][i + 1, j + 2] <- paste(
+                  x1[i, j], " (", round(x2[i, j] * 100, 1), ")", sep = '')
               }
 
             }
@@ -179,14 +176,16 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
             warning = function(w) {return(NA)},
             error = function(e) {return(NA)})
 
-          mats[[k + nc]] <- as.data.frame(mats[[k + nc]], stringsAsFactors = FALSE)
+          mats[[k + nc]] <- as.data.frame(mats[[k + nc]],
+                                          stringsAsFactors = FALSE)
           mats[[k + nc]][, 1] <- as.character(mats[[k + nc]][, 1])
-          mats[[k + nc]][1, 1] <- paste(catvars[k])
+          mats[[k + nc]][1, 1] <- paste0("**", catvars[k], "**")
           if(any(is.na(dat[, catvars[[k]]])) == FALSE) {
 
             for(l in 1:length(unique(dat[, catvars[[k]]]))) {
 
-              mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
+              mats[[k + nc]][l + 1, 1] <- paste(
+                levels(as.factor(dat[, catvars[[k]]]))[l])
             }
 
           }
@@ -195,7 +194,8 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
             for(l in 1:(length(unique(dat[, catvars[[k]]])) - 1)) {
 
-              mats[[k + nc]][l + 1, 1] <- paste(levels(as.factor(dat[, catvars[[k]]]))[l])
+              mats[[k + nc]][l + 1, 1] <- paste(
+                levels(as.factor(dat[, catvars[[k]]]))[l])
             }
 
             mats[[k + nc]][length(unique(dat[, catvars[[k]]])) + 1, 1] <- 'NA'
@@ -206,8 +206,8 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
       }
 
       mats <- do.call(rbind, mats)
-      colnames(mats)[1:2] <- c('', 'Overall')
-      colnames(mats)[ncol(mats)] <- 'p-value'
+      colnames(mats)[1:2] <- c('**Variable**', '**Overall**')
+      colnames(mats)[ncol(mats)] <- '**p-value**'
       mats$`p-value`[mats$`p-value` == '0'] <- "<.001"
       for(m in 1:length(unique(dat[, byvar]))) {
 

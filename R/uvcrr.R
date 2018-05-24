@@ -31,6 +31,9 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
   library(aod)
 
   dat <- dat[!is.na(dat[, time]) & !is.na(dat[, event]), ]
+
+  dat <- as.data.frame(dat)
+
   nc <- length(contvars)
 
   mats <- vector('list', length(catvars) + length(contvars))
@@ -60,7 +63,7 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
 
       mats[[k]] <- as.data.frame(mats[[k]], stringsAsFactors = FALSE)
       mats[[k]][, 1] <- as.character(mats[[k]][, 1])
-      mats[[k]][, 1] <- paste(contvars[k])
+      mats[[k]][, 1] <- paste0("**", contvars[k], "**")
     }
 
   }
@@ -69,16 +72,16 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
 
     for(k in 1:length(catvars)) {
 
-      mats[[k + nc]] <- matrix('',
-                               nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1,
-                               ncol = 3)
+      mats[[k + nc]] <- matrix(
+        '', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
       covs1 <- model.matrix(~ factor(dat[, catvars[[k]]]))[, -1]
       tryCatch({
 
         m2 <- crr(dat[!is.na(dat[, catvars[[k]]]), time],
                   dat[!is.na(dat[, catvars[[k]]]), event], covs1)
-        p1 <- wald.test(m2$var, m2$coef,
-                        Terms = 1:(length(levels(factor(dat[, catvars[[k]]]))) - 1))
+        p1 <- wald.test(
+          m2$var, m2$coef,
+          Terms = 1:(length(levels(factor(dat[, catvars[[k]]]))) - 1))
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
 
           if(i == 1) {
@@ -88,9 +91,10 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
 
           else if(i > 1) {
 
-            mats[[k + nc]][i + 1, 2] <- paste0(round(summary(m2)$conf.int[i - 1, 1], 2), " (",
-                                               round(summary(m2)$conf.int[i - 1, 3], 2), "-",
-                                               round(summary(m2)$conf.int[i - 1, 4], 2), ")")
+            mats[[k + nc]][i + 1, 2] <- paste0(
+              round(summary(m2)$conf.int[i - 1, 1], 2), " (",
+              round(summary(m2)$conf.int[i - 1, 3], 2), "-",
+              round(summary(m2)$conf.int[i - 1, 4], 2), ")")
           }
 
         }
@@ -113,13 +117,13 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
 
       mats[[k + nc]] <- as.data.frame(mats[[k + nc]], stringsAsFactors = FALSE)
       mats[[k + nc]][, 1] <- as.character(mats[[k + nc]][, 1])
-      mats[[k + nc]][1, 1] <- paste(catvars[k])
+      mats[[k + nc]][1, 1] <- paste0("**", catvars[k], "**")
     }
 
   }
 
   mats<-do.call(rbind, mats)
-  colnames(mats)[1:3] <- c('', 'HR (95% CI)', 'p-value')
+  colnames(mats)[1:3] <- c('**Variable**', '**HR (95% CI)**', '**p-value**')
   mats$`p-value`[mats$`p-value` == '0'] <- "<.001"
   return(mats)
 }

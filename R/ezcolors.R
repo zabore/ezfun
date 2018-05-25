@@ -8,7 +8,7 @@ ezpalette <- c("#61e294", "#3f7cff", "#7F0799", "#FF6F59", "#69747C", "#650d1b",
 #' @examples
 #' library(scales)
 #' scales::show_col(ez_pal()(9))
-ez_pal <- function() { manual_pal(ezpalette) }
+ez_pal <- function() { scales::manual_pal(ezpalette) }
 
 #' Discrete color & fill scales based on the ez palette
 #'

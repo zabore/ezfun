@@ -16,7 +16,7 @@ theme_ezbasic <- function() {
                      axis.title.y = element_text(hjust = 1, size = 9))
 
   list(ret,
-       scale_color_brewer(palette = "ez_pal"),
-       scale_fill_brewer(palette = "ez_pal"))
+       scale_color_ez(),
+       scale_fill_ez())
 
 }

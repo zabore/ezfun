@@ -133,7 +133,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
       }
 
       mats <- do.call(rbind, mats)
-      colnames(mats)[1:2] <- c('**Variable**', '**Overall**')
+      colnames(mats)[1:2] <- c('**Variable**', paste0('**Overall (n = ', nrow(dat), ")**"))
       return(mats)
     }
 
@@ -286,7 +286,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
         }
 
         mats <- do.call(rbind, mats)
-        colnames(mats)[1:2] <- c('**Variable**', '**Overall**')
+        colnames(mats)[1:2] <- c('**Variable**', paste0('**Overall (n = ', nrow(dat), ")**"))
         for(m in 1:length(unique(dat[, byvar]))) {
 
           colnames(mats)[m + 2] <- paste(

@@ -4,8 +4,50 @@
 \alias{theme_ezbasic}
 \title{Basic theme preferences for ggplot}
 \usage{
-theme_ezbasic()
+theme_ezbasic(base_size = 11.5, plot_title_size = 16,
+  plot_title_face = "plain", plot_title_margin = 10, subtitle_size = 12,
+  subtitle_face = "plain", subtitle_margin = 15, strip_text_size = 12,
+  strip_text_face = "plain", caption_size = 10, caption_face = "plain",
+  caption_margin = 10, caption = NULL, axis_text_size = base_size,
+  axis_title_size = 9, axis_title_face = "plain", x_axis_hjust = 0,
+  y_axis_hjust = 1, plot_margin = margin(30, 30, 30, 30),
+  grid_col = "#cccccc", axis_col = "#cccccc", axis = FALSE,
+  ticks = FALSE)
+}
+\arguments{
+\item{base_size}{base font size}
+
+\item{plot_title_face, plot_title_size, plot_title_margin}{plot tilte face,
+size and margin}
+
+\item{subtitle_face, subtitle_size}{plot subtitle face and size}
+
+\item{subtitle_margin}{plot subtitle margin bottom (single numeric value)}
+
+\item{strip_text_face, strip_text_size}{facet label face and size}
+
+\item{caption_face, caption_size, caption_margin}{plot caption face, size
+and margin}
+
+\item{axis_text_size}{font size of axis text}
+
+\item{axis_title_face, axis_title_size}{axis title face and size}
+
+\item{x_axis_hjust}{x-axis title justification (0=left, 0.5=center, 1=right)}
+
+\item{y_axis_hjust}{y-axis title justification (0=left, 0.5=center, 1=right)}
+
+\item{plot_margin}{plot margin (specify with [ggplot2::margin])}
+
+\item{grid_col}{grid color}
+
+\item{axis_col}{axis color}
+
+\item{axis}{add x or y axes? `TRUE`, `FALSE`, "`xy`"}
+
+\item{ticks}{ticks if `TRUE` add ticks}
 }
 \description{
-Basic theme preferences for ggplot
+Basic theme preferences for ggplot.
+Functionally a crib from (https://github.com/hrbrmstr/hrbrthemes/)
 }

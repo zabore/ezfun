@@ -5,49 +5,57 @@
 \title{Basic theme preferences for ggplot}
 \usage{
 theme_ezbasic(base_size = 11.5, plot_title_size = 16,
-  plot_title_face = "plain", plot_title_margin = 10, subtitle_size = 12,
+  plot_title_face = "plain", plot_title_margin = 10, subtitle_size = 13,
   subtitle_face = "plain", subtitle_margin = 15, strip_text_size = 12,
-  strip_text_face = "plain", caption_size = 10, caption_face = "plain",
-  caption_margin = 10, caption = NULL, axis_text_size = base_size,
-  axis_title_size = 9, axis_title_face = "plain", x_axis_hjust = 0,
-  y_axis_hjust = 1, plot_margin = margin(30, 30, 30, 30),
-  grid_col = "#cccccc", axis_col = "#cccccc", axis = FALSE,
-  ticks = FALSE)
+  strip_text_face = "plain", caption_size = 9, caption_face = "plain",
+  caption_margin = 10, axis_text_size = base_size, axis_title_size = 9,
+  axis_title_face = "plain", axis_title_just = "lt",
+  plot_margin = margin(10, 10, 10, 10), grid_col = "#cccccc", grid = TRUE,
+  axis_col = "#cccccc", axis = FALSE, ticks = FALSE,
+  legend_title = FALSE, legend_bottom = TRUE, legend_just = "left")
 }
 \arguments{
 \item{base_size}{base font size}
 
-\item{plot_title_face, plot_title_size, plot_title_margin}{plot tilte face,
-size and margin}
+\item{plot_title_face, plot_title_size, plot_title_margin}{plot title
+face, size and margin}
 
 \item{subtitle_face, subtitle_size}{plot subtitle face and size}
 
 \item{subtitle_margin}{plot subtitle margin bottom (single numeric value)}
 
-\item{strip_text_face, strip_text_size}{facet label face and size}
+\item{strip_text_face, strip_text_size}{facet label font face and size}
 
-\item{caption_face, caption_size, caption_margin}{plot caption face, size
-and margin}
+\item{caption_face, caption_size, caption_margin}{plot caption face, size and
+margin}
 
 \item{axis_text_size}{font size of axis text}
 
-\item{axis_title_face, axis_title_size}{axis title face and size}
+\item{axis_title_face, axis_title_size}{axis title font face and size}
 
-\item{x_axis_hjust}{x-axis title justification (0=left, 0.5=center, 1=right)}
+\item{axis_title_just}{axis title font justification, one of `[blmcrt]`}
 
-\item{y_axis_hjust}{y-axis title justification (0=left, 0.5=center, 1=right)}
+\item{plot_margin}{plot margin (specify with [ggplot2::margin()])}
 
-\item{plot_margin}{plot margin (specify with [ggplot2::margin])}
+\item{grid_col, axis_col}{grid & axis colors; both default to `#cccccc`}
 
-\item{grid_col}{grid color}
-
-\item{axis_col}{axis color}
+\item{grid}{panel grid (`TRUE`, `FALSE`, or a combination of `X`, `x`, `Y`,
+`y`)}
 
 \item{axis}{add x or y axes? `TRUE`, `FALSE`, "`xy`"}
 
 \item{ticks}{ticks if `TRUE` add ticks}
+
+\item{legend_title}{includes legend title if `TRUE`, defaults to `FALSE`}
+
+\item{legend_bottom}{places legend at bottom if `TRUE`, places legend to
+default position if `FALSE`}
+
+\item{legend_just}{legend justification, one of `right`, `left`, `center`.
+Defaults to `left`.}
 }
 \description{
-Basic theme preferences for ggplot.
-Functionally a crib from (https://github.com/hrbrmstr/hrbrthemes/)
+Basic theme preferences for ggplot. Functionally a crib of
+https://github.com/hrbrmstr/hrbrthemes/blob/master/R/theme-ipsum.r with some
+default changes
 }

@@ -116,6 +116,6 @@ uvcoxph <- function(contvars, catvars, event, time, dat) {
 
   mats <- do.call(rbind, mats)
   colnames(mats) <- c('**Variable**', '**HR (95% CI)**', '**p-value**')
-  mats$`p-value`[mats$`p-value` == '0'] <- "<.001"
+  mats$"**p-value**"[mats$"**p-value**" == '0'] <- "<.001"
   return(mats)
 }

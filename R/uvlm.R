@@ -96,6 +96,6 @@ uvlm <- function(contvars, catvars, out, dat) {
 
   mats <- do.call(rbind, mats)
   colnames(mats) <- c('**Variable**', '**Est (SE)**', '**p-value**')
-  mats$`p-value`[mats$`p-value` == '0'] <- "<.001"
+  mats$"**p-value**" [mats$"**p-value**"  == '0'] <- "<.001"
   return(mats)
 }

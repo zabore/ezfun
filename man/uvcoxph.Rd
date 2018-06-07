@@ -4,7 +4,7 @@
 \alias{uvcoxph}
 \title{Table of univariable Cox regression results}
 \usage{
-uvcoxph(contvars, catvars, event, time, dat)
+uvcoxph(contvars, catvars, event, time, dat, strata = NULL)
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows e.g. list('Age')}
@@ -16,6 +16,9 @@ uvcoxph(contvars, catvars, event, time, dat)
 \item{time}{is the survival time variables (needs to be in quotes)}
 
 \item{dat}{is the dataset for analysis}
+
+\item{strata}{is a possible strata term for use in calculating the log-rank
+p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"}
 }
 \value{
 Returns a dataframe. If there are warnings or errors from \code{coxph} then blank rows are returned.

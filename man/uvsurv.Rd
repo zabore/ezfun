@@ -4,7 +4,7 @@
 \alias{uvsurv}
 \title{Table of univariable survival analysis results}
 \usage{
-uvsurv(contvars, catvars, event, time, test, dat)
+uvsurv(contvars, catvars, event, time, test, dat, strata = NULL)
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows
@@ -21,6 +21,9 @@ e.g. list('Gender','Race')}
 units the survival time is in}
 
 \item{dat}{is the dataset to use for analysis}
+
+\item{strata}{is a possible strata term for use in calculating the log-rank
+p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"}
 }
 \value{
 Returns a dataframe

@@ -113,7 +113,7 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
           mats[[k + length(contvars)]], stringsAsFactors = FALSE)
         mats[[k + length(contvars)]][, 1] <- as.character(
           mats[[k + length(contvars)]][, 1])
-        mats[[k + length(contvars)]][1, 1]<- paste("**", catvars[k], "**")
+        mats[[k + length(contvars)]][1, 1]<- paste0("**", catvars[k], "**")
       }
 
     }

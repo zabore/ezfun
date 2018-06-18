@@ -208,7 +208,7 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
       mats <- do.call(rbind, mats)
       colnames(mats)[1:2] <- c('**Variable**', '**Overall**')
       colnames(mats)[ncol(mats)] <- '**p-value**'
-      mats$`p-value`[mats$'**p-value**' == '0'] <- "<.001"
+      mats$'**p-value**'[mats$'**p-value**' == '0'] <- "<.001"
       for(m in 1:length(unique(dat[, byvar]))) {
 
         colnames(mats)[m + 2] <- paste(levels(as.factor(dat[, byvar]))[m])

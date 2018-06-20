@@ -2,7 +2,7 @@
 % Please edit documentation in R/mvlogitres.R
 \name{mvlogitres}
 \alias{mvlogitres}
-\title{Format resuls from multivariable Cox regression model}
+\title{Format resuls from multivariable logistic regression model}
 \usage{
 mvlogitres(mod)
 }

@@ -1,4 +1,4 @@
-#' Format resuls from multivariable Cox regression model
+#' Format resuls from multivariable logistic regression model
 #'
 #' \code{mvlogitres} takes a multivariable logistic regression object and formats the
 #' resulting OR (95\% CI) and p-values into a table

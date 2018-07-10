@@ -58,6 +58,8 @@ msk_palettes <- list(
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments to pass to colorRampPalette()
 #'
+#' @export
+#'
 msk_pal <- function(palette = "main", reverse = FALSE, ...) {
   pal <- msk_palettes[[palette]]
 
@@ -74,6 +76,8 @@ msk_pal <- function(palette = "main", reverse = FALSE, ...) {
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
 #'            scale_color_gradientn(), used respectively when discrete is TRUE or FALSE
+#'
+#' @export
 #'
 scale_color_msk <- function(palette = "main", discrete = TRUE,
                             reverse = FALSE, ...) {
@@ -94,6 +98,8 @@ scale_color_msk <- function(palette = "main", discrete = TRUE,
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
 #'            scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE
+#'
+#' @export
 #'
 scale_fill_msk <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
   pal <- msk_pal(palette = palette, reverse = reverse)

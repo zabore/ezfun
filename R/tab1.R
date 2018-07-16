@@ -56,7 +56,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
           if(anyNA(dat[, contvars[[k]]]) == FALSE) {
 
             mats[[k]] <- matrix(NA, nrow = 1, ncol = 2)
-            y <- round(summary(dat[, contvars[[k]]]), 2)
+            y <- round(summary(dat[, contvars[[k]]]), 1)
             mats[[k]][, 2] <- paste0(y["Median"], " (",
                                      y[vals[[1]]], ", ",
                                      y[vals[[2]]], ")")
@@ -69,7 +69,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
           else if(anyNA(dat[, contvars[[k]]]) == TRUE) {
 
             mats[[k]] <- matrix(NA, nrow = 2, ncol = 2)
-            y <- round(summary(dat[, contvars[[k]]]), 2)
+            y <- round(summary(dat[, contvars[[k]]]), 1)
             mats[[k]][1, 2] <- paste0(y["Median"], " (",
                                       y[vals[[1]]], ", ",
                                       y[vals[[2]]], ")")
@@ -153,7 +153,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
               mats[[k]] <- matrix(NA, nrow = 1,
                                   ncol = length(
                                     unique(dat[, byvar])) + 2)
-              y <- round(summary(dat[, contvars[[k]]]), 2)
+              y <- round(summary(dat[, contvars[[k]]]), 1)
               x <- tapply(dat[, contvars[[k]]], dat[, byvar],
                           summary)
               for(j in 1:length(unique(dat[, byvar]))) {
@@ -162,9 +162,9 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
                                          y[vals[[1]]], ", ",
                                          y[vals[[2]]], ")")
                 mats[[k]][, j + 2] <- paste0(
-                  round(sapply(x, "[" , "Median")[j], 2), " (",
-                  round(sapply(x, "[", vals[[1]])[j], 2), ", ",
-                  round(sapply(x, "[", vals[[2]])[j], 2), ")")
+                  round(sapply(x, "[" , "Median")[j], 1), " (",
+                  round(sapply(x, "[", vals[[1]])[j], 1), ", ",
+                  round(sapply(x, "[", vals[[2]])[j], 1), ")")
               }
 
               mats[[k]] <- as.data.frame(mats[[k]],
@@ -178,7 +178,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
               mats[[k]] <- matrix(NA, nrow = 2,
                                   ncol = length(
                                     unique(dat[, byvar])) + 2)
-              y <- round(summary(dat[, contvars[[k]]]), 2)
+              y <- round(summary(dat[, contvars[[k]]]), 1)
               x <- tapply(dat[, contvars[[k]]], dat[, byvar],
                           summary)
               for(j in 1:length(unique(dat[, byvar]))) {
@@ -188,9 +188,9 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
                                           y[vals[[2]]], ")")
                 mats[[k]][2, 2] <- y["NA's"]
                 mats[[k]][1, j + 2] <- paste0(
-                  round(sapply(x, "[" , "Median")[j], 2), " (",
-                  round(sapply(x, "[", vals[[1]])[j], 2), ", ",
-                  round(sapply(x, "[", vals[[2]])[j], 2), ")")
+                  round(sapply(x, "[" , "Median")[j], 1), " (",
+                  round(sapply(x, "[", vals[[1]])[j], 1), ", ",
+                  round(sapply(x, "[", vals[[2]])[j], 1), ")")
                 mats[[k]][2, j + 2] <- sapply(x, "[", "NA's")[j]
               }
 
@@ -310,7 +310,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
               mats[[k]] <- matrix(NA, nrow = 1,
                                   ncol = length(
                                     unique(dat[, byvar])) + 3)
-              y <- round(summary(dat[, contvars[[k]]]), 2)
+              y <- round(summary(dat[, contvars[[k]]]), 1)
               x <- tapply(dat[, contvars[[k]]], dat[, byvar],
                           summary)
               for(j in 1:length(unique(dat[, byvar]))) {
@@ -319,9 +319,9 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
                                           y[vals[[1]]], ", ",
                                           y[vals[[2]]], ")")
                 mats[[k]][1, j + 2] <- paste0(
-                  round(sapply(x, "[", "Median")[j], 2), " (",
-                  round(sapply(x, "[", vals[[1]])[j], 2), ", ",
-                  round(sapply(x, "[", vals[[2]])[j], 2), ")")
+                  round(sapply(x, "[", "Median")[j], 1), " (",
+                  round(sapply(x, "[", vals[[1]])[j], 1), ", ",
+                  round(sapply(x, "[", vals[[2]])[j], 1), ")")
               }
 
               mats[[k]][1, ncol(mats[[k]])] <- round(
@@ -337,7 +337,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
 
               mats[[k]] <- matrix(NA, nrow = 2, ncol = length(
                 unique(dat[, byvar])) + 3)
-              y <- round(summary(dat[, contvars[[k]]]), 2)
+              y <- round(summary(dat[, contvars[[k]]]), 1)
               x <- tapply(dat[, contvars[[k]]], dat[, byvar],
                           summary)
               for(j in 1:length(unique(dat[, byvar]))) {
@@ -347,9 +347,9 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
                                           y[vals[[2]]], ")")
                 mats[[k]][2, 2] <- y["NA's"]
                 mats[[k]][1, j + 2] <- paste0(
-                  round(sapply(x, "[" , "Median")[j], 2), " (",
-                  round(sapply(x, "[", vals[[1]])[j], 2), ", ",
-                  round(sapply(x, "[", vals[[2]])[j], 2), ")")
+                  round(sapply(x, "[" , "Median")[j], 1), " (",
+                  round(sapply(x, "[", vals[[1]])[j], 1), ", ",
+                  round(sapply(x, "[", vals[[2]])[j], 1), ")")
                 mats[[k]][2, j + 2] <- sapply(x, "[", "NA's")[j]
               }
 

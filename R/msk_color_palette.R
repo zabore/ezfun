@@ -1,4 +1,4 @@
-# List of branded MSK colors
+#' List of branded MSK colors
 msk_colors <- c(
   `MSK blue` = "#007CBA",
   `MSK orange` = "#DF4602",
@@ -18,13 +18,21 @@ msk_colors <- c(
   `Light turquoise` = "#009490",
   `Dark yellow` = "#FFC20E",
   `Light yellow` = "#FFE100",
-  `Dark grey` = "#9E9E98",
-  `Light grey` = "#D5D4C7")
+  `Dark gray` = "#9E9E98",
+  `Light gray` = "#D5D4C7")
 
 
 #' Function to extract MSK colors as hex codes
 #'
 #' @param ... Character names of msk_colors
+#'
+#' @return Returns the hexadecimal code associated with the named color
+#'
+#' @example
+#'
+#' msk_cols("Dark blue")
+#'
+#' @export
 #'
 msk_cols <- function(...) {
   cols <- c(...)
@@ -36,7 +44,7 @@ msk_cols <- function(...) {
 }
 
 
-# List of color palettes I think work okay for visualizations based on these
+#' List of color palettes I think work okay for visualizations based on these
 msk_palettes <- list(
   `main`  = msk_cols("MSK blue", "MSK orange", "Medium blue",
                      "Medium orange", "Light blue", "Light orange",
@@ -44,17 +52,19 @@ msk_palettes <- list(
   `blues`  = msk_cols("MSK blue", "Medium blue", "Light blue", "Dark blue"),
   `oranges`   = msk_cols("MSK orange", "Medium orange", "Light orange",
                          "Dark orange"),
-
-  `contrast` = msk_cols("MSK blue", "MSK orange", "Dark violet", "Dark magenta",
-                        "Dark green", "Dark turquoise", "Dark yellow",
-                        "Light violet", "Light magenta", "Light green",
+  `contrast` = msk_cols("MSK blue", "MSK orange", "Dark violet", "Dark green",
+                        "Dark magenta", "Dark turquoise", "Dark yellow",
+                        "Light violet", "Light green", "Light magenta",
                         "Light turquoise", "Light yellow")
 )
 
 
 #' Return function to interpolate a MSK color palette
 #'
-#' @param palette Character name of palette in msk_palettes
+#' This can take a color palette and interpolate between the specified colors
+#' to get color scales for use in continuous variable settings
+#'
+#' @param palette Character name of palette in msk_palettes. Defaults to "main"
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments to pass to colorRampPalette()
 #'
@@ -75,7 +85,8 @@ msk_pal <- function(palette = "main", reverse = FALSE, ...) {
 #' @param discrete Boolean indicating whether color aesthetic is discrete or not
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
-#'            scale_color_gradientn(), used respectively when discrete is TRUE or FALSE
+#'            scale_color_gradientn(), used respectively when discrete is
+#'            TRUE or FALSE
 #'
 #' @export
 #'
@@ -97,11 +108,13 @@ scale_color_msk <- function(palette = "main", discrete = TRUE,
 #' @param discrete Boolean indicating whether color aesthetic is discrete or not
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
-#'            scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE
+#'            scale_fill_gradientn(), used respectively when discrete is
+#'            TRUE or FALSE
 #'
 #' @export
 #'
-scale_fill_msk <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
+scale_fill_msk <- function(palette = "main", discrete = TRUE, reverse = FALSE,
+                           ...) {
   pal <- msk_pal(palette = palette, reverse = reverse)
 
   if (discrete) {

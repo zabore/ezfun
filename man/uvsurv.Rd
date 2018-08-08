@@ -4,7 +4,8 @@
 \alias{uvsurv}
 \title{Table of univariable survival analysis results}
 \usage{
-uvsurv(contvars, catvars, event, time, test, dat, strata = NULL)
+uvsurv(contvars, catvars, event, time, test, dat, strata = NULL,
+  cuminc = FALSE)
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows
@@ -24,6 +25,10 @@ units the survival time is in}
 
 \item{strata}{is a possible strata term for use in calculating the log-rank
 p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"}
+
+\item{cuminc}{if TRUE allows you to get the estimates at specified timepoint
+on cumulative incidence scale (i.e. 1 - KM) rather than survival scale.
+Defaults to FALSE.}
 }
 \value{
 Returns a dataframe

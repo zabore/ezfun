@@ -21,13 +21,17 @@
 #' @param dat is the dataset to use for analysis
 #' @param strata is a possible strata term for use in calculating the log-rank
 #' p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"
+#' @param cuminc if TRUE allows you to get the estimates at specified timepoint
+#' on cumulative incidence scale (i.e. 1 - KM) rather than survival scale.
+#' Defaults to FALSE.
 #'
 #' @return Returns a dataframe
 #'
 #' @export
 #'
 
-uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL) {
+uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
+                   cuminc = FALSE) {
 
   dat <- as.data.frame(dat)
 
@@ -56,7 +60,7 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL) {
 
     }
 
-    if(!is.null(catvars)) {
+    if(!is.null(catvars) & cuminc == FALSE) {
 
       for(k in 1:length(catvars)) {
         mats[[k + nc]] <- matrix('', nrow = length(
@@ -92,7 +96,43 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL) {
         mats[[k + nc]][1, 1] <- paste0("**", catvars[k], "**")
       }
 
-    }
+    } else if(!is.null(catvars) & cuminc == TRUE) {
+
+        for(k in 1:length(catvars)) {
+          mats[[k + nc]] <- matrix('', nrow = length(
+            levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
+          s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+          f1 <- survfit(s1)
+          c1 <- coxph(s1)
+
+          for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
+            mats[[k + nc]][i + 1, 1] <- paste(
+              levels(as.factor(dat[, catvars[[k]]]))[i])
+            mats[[k + nc]][i + 1, 2] <- paste0(
+              round(summary(f1)$table[i, 'median'], 2), " (",
+              round(summary(f1)$table[i, "0.95LCL"], 2), "-",
+              round(summary(f1)$table[i, "0.95UCL"], 2), ")")
+            mats[[k + nc]][i + 1,3] <- paste0(
+              round(1 - summary(f1, times = test)$surv, 2), " (",
+              round(1 - summary(f1, times = test)$upper, 2), "-",
+              round(1 - summary(f1,times=test)$lower,2), ")")[i]
+            if(i == 1) {
+              mats[[k + nc]][i + 1, 4] <- '1.00'
+            } else if(i > 1) {
+              mats[[k + nc]][i + 1, 4] <- paste0(
+                round(summary(c1)$conf.int[i - 1, "exp(coef)"], 2), " (",
+                round(summary(c1)$conf.int[i - 1, "lower .95"], 2), "-",
+                round(summary(c1)$conf.int[i - 1, "upper .95"],2), ")")
+            }
+          }
+          mats[[k + nc]][1, 5] <- round(summary(c1)$sctest["pvalue"], 3)
+          mats[[k + nc]][1, 5][mats[[k + nc]][1, 5] == '0'] <- "<.001"
+          mats[[k + nc]] <- as.data.frame(mats[[k + nc]], stringsAsFactors = F)
+          mats[[k + nc]][, 1] <- as.character(mats[[k + nc]][, 1])
+          mats[[k + nc]][1, 1] <- paste0("**", catvars[k], "**")
+        }
+
+      }
   } else {
 
     if(!is.null(contvars)) {
@@ -117,7 +157,7 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL) {
 
     }
 
-    if(!is.null(catvars)) {
+    if(!is.null(catvars) & cuminc == FALSE) {
 
       for(k in 1:length(catvars)) {
         mats[[k + nc]] <- matrix('', nrow = length(
@@ -138,6 +178,43 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL) {
             round(summary(f1, times = test)$surv, 2), " (",
             round(summary(f1, times = test)$lower, 2), "-",
             round(summary(f1,times=test)$upper,2), ")")[i]
+          if(i == 1) {
+            mats[[k + nc]][i + 1, 4] <- '1.00'
+          } else if(i > 1) {
+            mats[[k + nc]][i + 1, 4] <- paste0(
+              round(summary(c1)$conf.int[i - 1, "exp(coef)"], 2), " (",
+              round(summary(c1)$conf.int[i - 1, "lower .95"], 2), "-",
+              round(summary(c1)$conf.int[i - 1, "upper .95"],2), ")")
+          }
+        }
+        mats[[k + nc]][1, 5] <- round(summary(c1)$sctest["pvalue"], 3)
+        mats[[k + nc]][1, 5][mats[[k + nc]][1, 5] == '0'] <- "<.001"
+        mats[[k + nc]] <- as.data.frame(mats[[k + nc]], stringsAsFactors = F)
+        mats[[k + nc]][, 1] <- as.character(mats[[k + nc]][, 1])
+        mats[[k + nc]][1, 1] <- paste0("**", catvars[k], "**")
+      }
+
+    } else if(!is.null(catvars) & cuminc == TRUE) {
+
+      for(k in 1:length(catvars)) {
+        mats[[k + nc]] <- matrix('', nrow = length(
+          levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
+        s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+        f1 <- survfit(s1)
+        c1 <- coxph(Surv(dat[, time], dat[, event]) ~
+                      factor(dat[, catvars[[k]]]) + strata(dat[, strata]))
+
+        for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
+          mats[[k + nc]][i + 1, 1] <- paste(
+            levels(as.factor(dat[, catvars[[k]]]))[i])
+          mats[[k + nc]][i + 1, 2] <- paste0(
+            round(summary(f1)$table[i, 'median'], 2), " (",
+            round(summary(f1)$table[i, "0.95LCL"], 2), "-",
+            round(summary(f1)$table[i, "0.95UCL"], 2), ")")
+          mats[[k + nc]][i + 1,3] <- paste0(
+            round(1 - summary(f1, times = test)$surv, 2), " (",
+            round(1 - summary(f1, times = test)$upper, 2), "-",
+            round(1 - summary(f1,times=test)$lower,2), ")")[i]
           if(i == 1) {
             mats[[k + nc]][i + 1, 4] <- '1.00'
           } else if(i > 1) {

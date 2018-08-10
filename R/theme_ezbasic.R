@@ -14,7 +14,7 @@
 #' @param caption_face,caption_size,caption_margin plot caption face, size and
 #' margin
 #' @param axis_title_face,axis_title_size axis title font face and size
-#' @param axis_title_just axis title font justification, one of `[blmcrt]`
+#' @param axis_title_just axis title font justification, one of `[blmcrt]`. Defauls to "cc"
 #' @param plot_margin plot margin (specify with [ggplot2::margin()])
 #' @param grid_col,axis_col grid & axis colors; both default to `#cccccc`
 #' @param grid panel grid (`TRUE`, `FALSE`, or a combination of `X`, `x`, `Y`,
@@ -26,7 +26,7 @@
 #' @param legend_bottom places legend at bottom if `TRUE`, places legend to
 #' default position if `FALSE`
 #' @param legend_just legend justification, one of `right`, `left`, `center`.
-#' Defaults to `left`.
+#' Defaults to `center`.
 #' @export
 #'
 
@@ -45,7 +45,7 @@ theme_ezbasic <- function(base_size = 11.5,
                           axis_text_size = base_size,
                           axis_title_size = 9,
                           axis_title_face = "plain",
-                          axis_title_just = "lt",
+                          axis_title_just = "cc",
                           plot_margin = margin(10, 10, 10, 10),
                           grid_col = "#cccccc",
                           grid = TRUE,
@@ -54,7 +54,7 @@ theme_ezbasic <- function(base_size = 11.5,
                           ticks = FALSE,
                           legend_title = FALSE,
                           legend_bottom = TRUE,
-                          legend_just = "left") {
+                          legend_just = "center") {
 
   ret <- ggplot2::theme_minimal(base_size = base_size)
 

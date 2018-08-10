@@ -9,10 +9,10 @@ theme_ezbasic(base_size = 11.5, plot_title_size = 16,
   subtitle_face = "plain", subtitle_margin = 15, strip_text_size = 12,
   strip_text_face = "plain", caption_size = 9, caption_face = "plain",
   caption_margin = 10, axis_text_size = base_size, axis_title_size = 9,
-  axis_title_face = "plain", axis_title_just = "lt",
+  axis_title_face = "plain", axis_title_just = "cc",
   plot_margin = margin(10, 10, 10, 10), grid_col = "#cccccc", grid = TRUE,
   axis_col = "#cccccc", axis = FALSE, ticks = FALSE,
-  legend_title = FALSE, legend_bottom = TRUE, legend_just = "left")
+  legend_title = FALSE, legend_bottom = TRUE, legend_just = "center")
 }
 \arguments{
 \item{base_size}{base font size}
@@ -33,7 +33,7 @@ margin}
 
 \item{axis_title_face, axis_title_size}{axis title font face and size}
 
-\item{axis_title_just}{axis title font justification, one of `[blmcrt]`}
+\item{axis_title_just}{axis title font justification, one of `[blmcrt]`. Defauls to "cc"}
 
 \item{plot_margin}{plot margin (specify with [ggplot2::margin()])}
 
@@ -52,7 +52,7 @@ margin}
 default position if `FALSE`}
 
 \item{legend_just}{legend justification, one of `right`, `left`, `center`.
-Defaults to `left`.}
+Defaults to `center`.}
 }
 \description{
 Basic theme preferences for ggplot. Functionally a crib of

@@ -4,7 +4,8 @@
 \alias{tab1_re}
 \title{Table 1 with random effects model p-values}
 \usage{
-tab1_re(contvars, catvars, byvar, re, dat, col = TRUE, spread = "range")
+tab1_re(contvars, catvars, byvar, re, dat, col = TRUE,
+  spread = "range")
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows

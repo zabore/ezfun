@@ -5,13 +5,14 @@
 \title{Basic theme preferences for ggplot}
 \usage{
 theme_ezbasic(base_size = 11.5, plot_title_size = 16,
-  plot_title_face = "plain", plot_title_margin = 10, subtitle_size = 13,
-  subtitle_face = "plain", subtitle_margin = 15, strip_text_size = 12,
-  strip_text_face = "plain", caption_size = 9, caption_face = "plain",
-  caption_margin = 10, axis_text_size = base_size, axis_title_size = 9,
+  plot_title_face = "plain", plot_title_margin = 10,
+  subtitle_size = 13, subtitle_face = "plain", subtitle_margin = 15,
+  strip_text_size = 12, strip_text_face = "plain", caption_size = 9,
+  caption_face = "plain", caption_margin = 10,
+  axis_text_size = base_size, axis_title_size = 9,
   axis_title_face = "plain", axis_title_just = "cc",
-  plot_margin = margin(10, 10, 10, 10), grid_col = "#cccccc", grid = TRUE,
-  axis_col = "#cccccc", axis = FALSE, ticks = FALSE,
+  plot_margin = margin(10, 10, 10, 10), grid_col = "#cccccc",
+  grid = TRUE, axis_col = "#cccccc", axis = FALSE, ticks = FALSE,
   legend_title = FALSE, legend_bottom = TRUE, legend_just = "center")
 }
 \arguments{

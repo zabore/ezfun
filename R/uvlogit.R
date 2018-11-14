@@ -38,7 +38,7 @@ uvlogit <- function(contvars, catvars, out, dat) {
       tryCatch({
 
         mod <- glm(dat[, out] ~ dat[, contvars[[k]]], family = "binomial")
-        res <- exp(cbind(coef(mod), confint(mod)))
+        res <- exp(cbind(coef(mod), confint.default(mod)))
         mats[[k]][, 2] <- paste0(round(res[2, 1], 2), " (",
                                  round(res[2, 2], 2), "-",
                                  round(res[2, 3], 2), ")")
@@ -72,7 +72,7 @@ uvlogit <- function(contvars, catvars, out, dat) {
         mod2 <- glm(dat[!is.na(dat[, catvars[[k]]]), out] ~
                       factor(dat[!is.na(dat[, catvars[[k]]]), catvars[[k]]]),
                     family = "binomial")
-        res2 <- exp(cbind(coef(mod2), confint(mod2)))
+        res2 <- exp(cbind(coef(mod2), confint.default(mod2)))
         mats[[k + nc]][3:nrow(mats[[k + nc]]), 2] <- paste0(
           round(res2[-1, 1], 2), " (",
           round(res2[-1, 2], 2), "-",

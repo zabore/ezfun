@@ -16,7 +16,9 @@ e.g. list('Gender','Race'). Can be NULL.}
 
 \item{byvar}{is the categorical variable you want to tabulate by across the
 columns (needs to be in quotes). MUST BE 0/1 since it will be used as the
-outcome variable in \code{glmer}.}
+outcome variable in \code{\link[lme4]{glmer}}.}
+
+\item{re}{the name of the random effect variable, should be supplied in quotes, e.g. re = "ptid"}
 
 \item{dat}{is the dataset to use for analysis}
 
@@ -29,7 +31,7 @@ percent (TRUE, default) or row percent (FALSE)}
 }
 \value{
 Returns a dataframe. If there are warnings or errors from
-\code{glmer} then NA is returned in place of the p-value.
+\code{\link[lme4]{glmer}} then NA is returned in place of the p-value.
 }
 \description{
 \code{tab1_re} takes lists of continuous and/or categorical variables and

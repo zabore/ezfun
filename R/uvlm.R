@@ -1,7 +1,7 @@
 #' Table of univariable linear regression results
 #'
 #' \code{uvlm} takes lists of continuous and/or categorical variables, calls
-#' \code{lm} to run a linear regression model for each, and returns a table with
+#' \code{\link[stats]{lm}} to run a linear regression model for each, and returns a table with
 #' Est (SE) and p-value for each variable that is suitable for printing in a
 #' Word \code{R Markdown} file.
 #'
@@ -14,7 +14,7 @@
 #' @param out is the continuous outcome variable (needs to be in quotes)
 #' @param dat is the dataset for analysis
 #'
-#' @return Returns a dataframe. If there are warnings or errors from \code{lm}
+#' @return Returns a dataframe. If there are warnings or errors from \code{\link[stats]{lm}}
 #' then blank rows are returned.
 #'
 #' @export
@@ -34,7 +34,7 @@ uvlm <- function(contvars, catvars, out, dat) {
       mats[[k]] <- matrix(NA, nrow = 1, ncol = 3)
       tryCatch({
 
-        coef <- summary(lm(dat[, out] ~ dat[, contvars[[k]]]))$coefficients
+        coef <- summary(stats::lm(dat[, out] ~ dat[, contvars[[k]]]))$coefficients
         mats[[k]][, 2] <- paste0(
           round(coef[2, 1], 2), " (", round(coef[2, 2], 2), ")")
         mats[[k]][, 3] <- round(coef[2, 4], 3)
@@ -64,12 +64,12 @@ uvlm <- function(contvars, catvars, out, dat) {
 
       tryCatch({
 
-        m1 <- lm(dat[!is.na(dat[, catvars[[k]]]), out] ~ 1)
-        m2 <- lm(dat[!is.na(dat[, catvars[[k]]]), out] ~ factor(dat[!is.na(dat[, catvars[[k]]]), catvars[[k]]]))
+        m1 <- stats::lm(dat[!is.na(dat[, catvars[[k]]]), out] ~ 1)
+        m2 <- stats::lm(dat[!is.na(dat[, catvars[[k]]]), out] ~ factor(dat[!is.na(dat[, catvars[[k]]]), catvars[[k]]]))
         coef <- summary(m2)$coefficients
         mats[[k + nc]][3:nrow(mats[[k + nc]]), 2] <- paste0(
           round(coef[-1, 1], 2), " (", round(coef[-1, 2], 2), ")")
-        mats[[k + nc]][1, 3] <- round(anova(m1, m2)["Pr(>F)"][2, ], 3)
+        mats[[k + nc]][1, 3] <- round(stats::anova(m1, m2)["Pr(>F)"][2, ], 3)
       }, warning = function(w) {
         mats[[k + nc]][3:nrow(mats[[k + nc]]), 2] <- NA
         mats[[k + nc]][1, 3] <- NA

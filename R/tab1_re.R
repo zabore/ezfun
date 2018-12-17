@@ -14,7 +14,8 @@
 #' e.g. list('Gender','Race'). Can be NULL.
 #' @param byvar is the categorical variable you want to tabulate by across the
 #' columns (needs to be in quotes). MUST BE 0/1 since it will be used as the
-#' outcome variable in \code{glmer}.
+#' outcome variable in \code{\link[lme4]{glmer}}.
+#' @param re the name of the random effect variable, should be supplied in quotes, e.g. re = "ptid"
 #' @param dat is the dataset to use for analysis
 #' @param col takes the value TRUE or FALSE indicating whether you want column
 #' percent (TRUE, default) or row percent (FALSE)
@@ -23,7 +24,7 @@
 #' "range".
 #'
 #' @return Returns a dataframe. If there are warnings or errors from
-#' \code{glmer} then NA is returned in place of the p-value.
+#' \code{\link[lme4]{glmer}} then NA is returned in place of the p-value.
 #'
 #' @export
 #'
@@ -32,8 +33,6 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
                     spread = "range") {
 
   dat <- as.data.frame(dat)
-
-  library(lme4)
 
   if(spread == "range") vals <- list("Min.", "Max.") else
     if(spread == "iqr") vals <- list("1st Qu.", "3rd Qu.")
@@ -66,12 +65,12 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
                 round(sapply(x, "[", vals[[2]])[j], 2), ")")
             }
 
-            form <- as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
+            form <- stats::as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
                                       ") + (1 | ", re, ")"))
 
             mats[[k]][1, ncol(mats[[k]])] <- tryCatch(
-              round(summary(glmer(form, data = dat,
-                                  family = binomial))$coefficients[2, 4], 3),
+              round(summary(lme4::glmer(form, data = dat,
+                                  family = stats::binomial))$coefficients[2, 4], 3),
               warning = function(w) {return(NA)},
               error = function(e) {return(NA)})
 
@@ -99,12 +98,12 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
               mats[[k]][2, j + 2] <- sapply(x, "[", "NA's")[j]
             }
 
-            form <- as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
+            form <- stats::as.formula(paste0(byvar, " ~ scale(", contvars[[k]],
                                       ") + (1 | ", re, ")"))
 
             mats[[k]][1, ncol(mats[[k]])] <- tryCatch(
-              round(summary(glmer(form, data = dat,
-                                  family = binomial))$coefficients[2, 4], 3),
+              round(summary(lme4::glmer(form, data = dat,
+                                  family = stats::binomial))$coefficients[2, 4], 3),
               warning = function(w) {return(NA)},
               error = function(e) {return(NA)})
 
@@ -164,15 +163,15 @@ tab1_re <- function(contvars, catvars, byvar, re, dat, col = TRUE,
 
           }
 
-          form0 <- as.formula(paste0(byvar, " ~ 1 + (1 | ", re, ")"))
-          form2 <- as.formula(paste0(byvar, " ~ factor(", catvars[[k]],
+          form0 <- stats::as.formula(paste0(byvar, " ~ 1 + (1 | ", re, ")"))
+          form2 <- stats::as.formula(paste0(byvar, " ~ factor(", catvars[[k]],
                                      ") + (1 | ", re, ")"))
 
           mats[[k + nc]][1, ncol(mats[[k + nc]])] <- tryCatch(
-            round(anova(glmer(form0, data = dat[!is.na(dat[, catvars[[k]]]), ],
-                              family = binomial),
-                        glmer(form2, data = dat[!is.na(dat[, catvars[[k]]]), ],
-                              family = binomial))$"Pr(>Chisq)"[2], 3),
+            round(stats::anova(lme4::glmer(form0, data = dat[!is.na(dat[, catvars[[k]]]), ],
+                              family = stats::binomial),
+                        lme4::glmer(form2, data = dat[!is.na(dat[, catvars[[k]]]), ],
+                              family = stats::binomial))$"Pr(>Chisq)"[2], 3),
             warning = function(w) {return(NA)},
             error = function(e) {return(NA)})
 

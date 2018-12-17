@@ -27,17 +27,17 @@ percent (TRUE, default) or row percent (FALSE)}
 "range".}
 
 \item{pval}{takes the value TRUE or FALSE indicating whether p-values should
-be included. Defaults to TRUE. If TRUE, \code{kruskal.test} p-values are
-produced for continuous variables and either \code{fisher.test} or
-\code{chisq.test} p-values are produced for categorical variables.
+be included. Defaults to TRUE. If TRUE, \code{stats::kruskal.test} p-values are
+produced for continuous variables and either \code{stats::fisher.test} or
+\code{stats::chisq.test} p-values are produced for categorical variables.
 See \code{param} for testing details for categorical variables.}
 
-\item{fisher}{takes the value TRUE or FALSE. If TRUE, \code{fisher.test}
-p-values are produced. If FALSE, \code{chisq.test} p-values are produced.}
+\item{fisher}{takes the value TRUE or FALSE. If TRUE, \code{stats::fisher.test}
+p-values are produced. If FALSE, \code{stats::chisq.test} p-values are produced.}
 }
 \value{
 Returns a dataframe. If there are warnings or errors from
-\code{kruskal.test}, \code{fisher.test}, or \code{chisq.test} then NA is
+\code{stats::kruskal.test}, \code{stats::fisher.test}, or \code{stats::chisq.test} then NA is
 returned in place of the p-value.
 }
 \description{

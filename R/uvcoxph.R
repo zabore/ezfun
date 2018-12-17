@@ -1,7 +1,7 @@
 #' Table of univariable Cox regression results
 #'
-#' \code{uvcoxph} takes lists of continuous and/or categorical variables, runs a univariable \code{coxph} model for
-#' each, and puts the resulting HR (95\% CI) and p-value into a table suitable for printing in a Word \code{R Markdown}
+#' \code{uvcoxph} takes lists of continuous and/or categorical variables, runs a univariable \code{\link[survival]{coxph}} model for
+#' each, and puts the resulting HR (95\% CI) and p-value into a table suitable for printing in a Word R Markdown
 #' file.
 #'
 #' @author Emily C Zabor \email{zabore@@mskcc.org}
@@ -14,14 +14,12 @@
 #' @param strata is a possible strata term for use in calculating the log-rank
 #' p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"
 #'
-#' @return Returns a dataframe. If there are warnings or errors from \code{coxph} then blank rows are returned.
+#' @return Returns a dataframe. If there are warnings or errors from \code{\link[survival]{coxph}} then blank rows are returned.
 #'
 #' @export
 #'
 
 uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
-  library(survival)
-  library(aod)
 
   dat <- dat[!is.na(dat[, time]) & !is.na(dat[, event]), ]
 
@@ -38,18 +36,18 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
         mats[[k]] <- matrix(NA, nrow = 1, ncol = 3)
         tryCatch({
 
-          m1 <- coxph(Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]])
+          m1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]])
           mats[[k]][1, 2] <- paste0(
             round(summary(m1)$conf.int[, "exp(coef)"], 2), " (",
             round(summary(m1)$conf.int[, "lower .95"], 2), "-",
             round(summary(m1)$conf.int[, "upper .95"], 2), ")")
           mats[[k]][1, 3] <- round(summary(m1)$sctest["pvalue"], 3)
         }, warning = function(w) {
-          print(str(w$message))
+          print(utils::str(w$message))
           mats[[k]][1, 2] <- NA
           mats[[k]][1, 3] <- NA
         }, error = function(e) {
-          print(str(e$message))
+          print(utils::str(e$message))
           mats[[k]][1, 2] <- NA
           mats[[k]][1, 3] <- NA
         })
@@ -69,7 +67,7 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
           ' ', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
 
         tryCatch({
-          m2 <- coxph(Surv(dat[, time], dat[, event]) ~
+          m2 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~
                         factor(dat[, catvars[[k]]]))
 
           for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
@@ -126,7 +124,7 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
         mats[[k]] <- matrix(NA, nrow = 1, ncol = 3)
         tryCatch({
 
-          m1 <- coxph(Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]] +
+          m1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]] +
                         strata(dat[, strata]))
           mats[[k]][1, 2] <- paste0(
             round(summary(m1)$conf.int[, "exp(coef)"], 2), " (",
@@ -134,11 +132,11 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
             round(summary(m1)$conf.int[, "upper .95"], 2), ")")
           mats[[k]][1, 3] <- round(summary(m1)$sctest["pvalue"], 3)
         }, warning = function(w) {
-          print(str(w$message))
+          print(utils::str(w$message))
           mats[[k]][1, 2] <- NA
           mats[[k]][1, 3] <- NA
         }, error = function(e) {
-          print(str(e$message))
+          print(utils::str(e$message))
           mats[[k]][1, 2] <- NA
           mats[[k]][1, 3] <- NA
         })
@@ -158,7 +156,7 @@ uvcoxph <- function(contvars, catvars, event, time, dat, strata = NULL) {
           ' ', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
 
         tryCatch({
-          m2 <- coxph(Surv(dat[, time], dat[, event]) ~
+          m2 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~
                         factor(dat[, catvars[[k]]]) + strata(dat[, strata]))
 
           for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {

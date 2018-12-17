@@ -2,7 +2,6 @@
 
 S3method(print,palette)
 export(bycont)
-export(compute_age)
 export(ez_pal)
 export(lowerchar)
 export(msk_palette)

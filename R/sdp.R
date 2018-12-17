@@ -13,7 +13,7 @@
 #'
 
 sdp <- function(sd) {
-  pval <- 1 - pchisq(sd$chisq, length(sd$n) - 1)
+  pval <- 1 - stats::pchisq(sd$chisq, length(sd$n) - 1)
   if(pval > 0.001) return(round(pval, 3)) else
     if(pval < 0.001) return("<.001")
 }

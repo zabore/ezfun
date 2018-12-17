@@ -84,7 +84,7 @@ bycont <- function(catvars, contvar, dat, pval = TRUE){
 
       }
       mats[[k]][1, 4] <- round(
-        kruskal.test(dat[, contvar] ~
+        stats::kruskal.test(dat[, contvar] ~
                        as.factor(dat[, catvars[[k]]]))$p.value, 3)
       mats[[k]] <- as.data.frame(mats[[k]])
       mats[[k]][, 1] <- as.character(mats[[k]][, 1])

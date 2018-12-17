@@ -1,12 +1,12 @@
 #' Table of univariable competing risks regression results
 #'
 #' \code{uvcrr} takes lists of continuous and/or categorical variables, runs a
-#' univariable \code{crr} model for each, and puts the resulting HR (95\% CI)
-#' and p-value into a table suitable for printing in a Word \code{R Markdown}
+#' univariable \code{\link[cmprsk]{crr}} model for each, and puts the resulting HR (95\% CI)
+#' and p-value into a table suitable for printing in a Word R Markdown
 #' file.
 #'
-#' \code{uvcrr} uses all function defaults to \code{crr}. For example, the
-#' failure code is set to 1. See the help file for \code{crr} for additional
+#' \code{uvcrr} uses all function defaults to \code{\link[cmprsk]{crr}}. For example, the
+#' failure code is set to 1. See the help file for \code{\link[cmprsk]{crr}} for additional
 #' details.
 #'
 #' @author Emily C Zabor \email{zabore@@mskcc.org}
@@ -19,16 +19,13 @@
 #' @param time is the survival time variables (needs to be in quotes)
 #' @param dat is the dataset for analysis
 #'
-#' @return Returns a dataframe. If there are warnings or errors from \code{crr}
+#' @return Returns a dataframe. If there are warnings or errors from \code{\link[cmprsk]{crr}}
 #' then blank rows are returned.
 #'
 #' @export
 #'
 
 uvcrr <- function(contvars, catvars, event, time, dat) {
-
-  library(cmprsk)
-  library(aod)
 
   dat <- dat[!is.na(dat[, time]) & !is.na(dat[, event]), ]
 
@@ -44,7 +41,7 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
       mats[[k]] <- matrix(NA, nrow = 1, ncol = 3)
       tryCatch({
 
-        m1 <- crr(dat[!is.na(dat[, contvars[[k]]]), time],
+        m1 <- cmprsk::crr(dat[!is.na(dat[, contvars[[k]]]), time],
                   dat[!is.na(dat[, contvars[[k]]]), event],
                   dat[!is.na(dat[, contvars[[k]]]), contvars[[k]]])
         mats[[k]][1, 2] <- paste0(round(summary(m1)$conf.int[, 1], 2), " (",
@@ -74,12 +71,12 @@ uvcrr <- function(contvars, catvars, event, time, dat) {
 
       mats[[k + nc]] <- matrix(
         '', nrow = length(levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 3)
-      covs1 <- model.matrix(~ factor(dat[, catvars[[k]]]))[, -1]
+      covs1 <- stats::model.matrix(~ factor(dat[, catvars[[k]]]))[, -1]
       tryCatch({
 
-        m2 <- crr(dat[!is.na(dat[, catvars[[k]]]), time],
+        m2 <- cmprsk::crr(dat[!is.na(dat[, catvars[[k]]]), time],
                   dat[!is.na(dat[, catvars[[k]]]), event], covs1)
-        p1 <- wald.test(
+        p1 <- aod::wald.test(
           m2$var, m2$coef,
           Terms = 1:(length(levels(factor(dat[, catvars[[k]]]))) - 1))
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {

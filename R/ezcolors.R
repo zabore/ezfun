@@ -18,7 +18,7 @@ ez_pal <- function() { scales::manual_pal(ezpalette) }
 #' @inheritParams ggplot2::scale_colour_hue
 #' @rdname scale_ez
 #' @export
-scale_colour_ez <- function(...) { discrete_scale("colour", "ez", ez_pal(), ...) }
+scale_colour_ez <- function(...) { ggplot2::discrete_scale("colour", "ez", ez_pal(), ...) }
 
 #' @export
 #' @rdname scale_ez
@@ -26,4 +26,4 @@ scale_color_ez <- scale_colour_ez
 
 #' @export
 #' @rdname scale_ez
-scale_fill_ez <- function(...) { discrete_scale("fill", "ez", ez_pal(), ...) }
+scale_fill_ez <- function(...) { ggplot2::discrete_scale("fill", "ez", ez_pal(), ...) }

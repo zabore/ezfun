@@ -1,7 +1,7 @@
 #' Table of univariable logistic regression results
 #'
 #' \code{uvlogit} takes lists of continuous and/or categorical variables, calls
-#' \code{glm} to run a logistic regression model for each, and returns a table with
+#' \code{\link[stats]{glm}} to run a logistic regression model for each, and returns a table with
 #' OR (95% CI) and p-value for each variable that is suitable for printing in a
 #' Word \code{R Markdown} file.
 #'
@@ -15,7 +15,7 @@
 #' (needs to be in quotes)
 #' @param dat is the dataset for analysis
 #'
-#' @return Returns a dataframe. If there are warnings or errors from \code{glm}
+#' @return Returns a dataframe. If there are warnings or errors from \code{\link[stats]{glm}}
 #' then blank rows are returned.
 #'
 #' @export
@@ -24,8 +24,6 @@
 uvlogit <- function(contvars, catvars, out, dat) {
 
   dat <- as.data.frame(dat)
-
-  library(aod)
 
   mats <- vector('list', length(contvars) + length(catvars))
   nc <- length(contvars)
@@ -37,8 +35,8 @@ uvlogit <- function(contvars, catvars, out, dat) {
       mats[[k]] <- matrix(NA, nrow = 1, ncol = 3)
       tryCatch({
 
-        mod <- glm(dat[, out] ~ dat[, contvars[[k]]], family = "binomial")
-        res <- exp(cbind(coef(mod), confint.default(mod)))
+        mod <- stats::glm(dat[, out] ~ dat[, contvars[[k]]], family = "binomial")
+        res <- exp(cbind(stats::coef(mod), stats::confint.default(mod)))
         mats[[k]][, 2] <- paste0(round(res[2, 1], 2), " (",
                                  round(res[2, 2], 2), "-",
                                  round(res[2, 3], 2), ")")
@@ -69,17 +67,17 @@ uvlogit <- function(contvars, catvars, out, dat) {
 
       tryCatch({
 
-        mod2 <- glm(dat[!is.na(dat[, catvars[[k]]]), out] ~
+        mod2 <- stats::glm(dat[!is.na(dat[, catvars[[k]]]), out] ~
                       factor(dat[!is.na(dat[, catvars[[k]]]), catvars[[k]]]),
                     family = "binomial")
-        res2 <- exp(cbind(coef(mod2), confint.default(mod2)))
+        res2 <- exp(cbind(stats::coef(mod2), stats::confint.default(mod2)))
         mats[[k + nc]][3:nrow(mats[[k + nc]]), 2] <- paste0(
           round(res2[-1, 1], 2), " (",
           round(res2[-1, 2], 2), "-",
           round(res2[-1, 3], 2), ")")
         mats[[k + nc]][1, 3] <- round(
-          wald.test(b = coef(mod2),  Sigma = vcov(mod2),
-                    Terms = 2:length(coef(mod2)))$result$chi2["P"], 3)
+          aod::wald.test(b = stats::coef(mod2),  Sigma = stats::vcov(mod2),
+                    Terms = 2:length(stats::coef(mod2)))$result$chi2["P"], 3)
       }, warning = function(w) {
         mats[[k + nc]][3:nrow(mats[[k + nc]]), 2] <- NA
         mats[[k + nc]][1, 3] <- NA

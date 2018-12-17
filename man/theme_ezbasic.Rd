@@ -11,7 +11,7 @@ theme_ezbasic(base_size = 11.5, plot_title_size = 16,
   caption_face = "plain", caption_margin = 10,
   axis_text_size = base_size, axis_title_size = 9,
   axis_title_face = "plain", axis_title_just = "cc",
-  plot_margin = margin(10, 10, 10, 10), grid_col = "#cccccc",
+  plot_margin = ggplot2::margin(10, 10, 10, 10), grid_col = "#cccccc",
   grid = TRUE, axis_col = "#cccccc", axis = FALSE, ticks = FALSE,
   legend_title = FALSE, legend_bottom = TRUE, legend_just = "center")
 }

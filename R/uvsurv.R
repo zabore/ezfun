@@ -1,11 +1,11 @@
 #' Table of univariable survival analysis results
 #'
 #' \code{uvsurv} takes lists of continuous and/or categorical variables.
-#' For continuous variables, \code{coxph} returns HR (95\% CI) and
-#' log-rank p-values. For categorical variables, \code{coxph} returns
-#' HR (95\% CI) and log-rank p-values and \code{survfit} produces median
+#' For continuous variables, \code{\link[survival]{coxph}} returns HR (95\% CI) and
+#' log-rank p-values. For categorical variables, \code{\link[survival]{coxph}} returns
+#' HR (95\% CI) and log-rank p-values and \code{\link[survival]{survfit}} produces median
 #' survival (95\% CI) and a survival estimate at a specified time. Results
-#' are put into  a table suitable for printing in a Word \code{R Markdown}
+#' are put into  a table suitable for printing in a WordR Markdown
 #' file.
 #'
 #' @author Emily C Zabor \email{zabore@@mskcc.org}
@@ -44,7 +44,7 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
       for(k in 1:nc) {
 
         mats[[k]] <- matrix(NA, nrow = 1, ncol = 5)
-        c1 <- coxph(Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]])
+        c1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]])
         mats[[k]][1, 2] <- 'NA'
         mats[[k]][1, 3] <- 'NA'
         mats[[k]][1, 4] <- paste0(
@@ -65,9 +65,9 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
       for(k in 1:length(catvars)) {
         mats[[k + nc]] <- matrix('', nrow = length(
           levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
-        s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
-        f1 <- survfit(s1)
-        c1 <- coxph(s1)
+        s1 <- survival::Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+        f1 <- survival::survfit(s1)
+        c1 <- survival::coxph(s1)
 
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
           mats[[k + nc]][i + 1, 1] <- paste(
@@ -101,9 +101,9 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
         for(k in 1:length(catvars)) {
           mats[[k + nc]] <- matrix('', nrow = length(
             levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
-          s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
-          f1 <- survfit(s1)
-          c1 <- coxph(s1)
+          s1 <- survival::Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+          f1 <- survival::survfit(s1)
+          c1 <- survival::coxph(s1)
 
           for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
             mats[[k + nc]][i + 1, 1] <- paste(
@@ -140,7 +140,7 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
       for(k in 1:nc) {
 
         mats[[k]] <- matrix(NA, nrow = 1, ncol = 5)
-        c1 <- coxph(Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]] +
+        c1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~ dat[, contvars[[k]]] +
                       strata(dat[, strata]))
         mats[[k]][1, 2] <- 'NA'
         mats[[k]][1, 3] <- 'NA'
@@ -162,9 +162,9 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
       for(k in 1:length(catvars)) {
         mats[[k + nc]] <- matrix('', nrow = length(
           levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
-        s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
-        f1 <- survfit(s1)
-        c1 <- coxph(Surv(dat[, time], dat[, event]) ~
+        s1 <- survival::Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+        f1 <- survival::survfit(s1)
+        c1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~
                       factor(dat[, catvars[[k]]]) + strata(dat[, strata]))
 
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {
@@ -199,9 +199,9 @@ uvsurv <- function(contvars, catvars, event, time, test, dat, strata = NULL,
       for(k in 1:length(catvars)) {
         mats[[k + nc]] <- matrix('', nrow = length(
           levels(factor(dat[, catvars[[k]]]))) + 1, ncol = 5)
-        s1 <- Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
-        f1 <- survfit(s1)
-        c1 <- coxph(Surv(dat[, time], dat[, event]) ~
+        s1 <- survival::Surv(dat[, time], dat[, event]) ~ factor(dat[, catvars[[k]]])
+        f1 <- survival::survfit(s1)
+        c1 <- survival::coxph(survival::Surv(dat[, time], dat[, event]) ~
                       factor(dat[, catvars[[k]]]) + strata(dat[, strata]))
 
         for(i in 1:length(levels(factor(dat[, catvars[[k]]])))) {

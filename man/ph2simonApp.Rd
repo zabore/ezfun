@@ -7,13 +7,17 @@
 ph2simonApp()
 }
 \value{
-The output includes 1) fields to enter the design parameters for the 
-Simon 2-stage Phase II design, 2) R output with \code{ph2simon} results, 
-3) a paragraph interpreting the results, and 4) a plot of maximum versus expected 
+The output includes 1) fields to enter the design parameters for the
+Simon 2-stage Phase II design, 2) R output with \code{ph2simon} results,
+3) a paragraph interpreting the results, and 4) a plot of maximum versus expected
 number of patients indicating the optimal and minimax results.
 }
 \description{
-\code{ph2simonApp} is simply a Shiny interface for the \code{ph2simon} 
+\code{ph2simonApp} is simply a Shiny interface for the \code{ph2simon}
 function from the \code{clinfun} package. No arguments need to be passed to
 the function.
+}
+\examples{
+ph2simonApp()
+
 }

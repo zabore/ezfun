@@ -21,15 +21,15 @@
 #' (min, max) or (Q1, Q3) in summaries of continuous variables. Defaults to
 #' "range".
 #' @param pval takes the value TRUE or FALSE indicating whether p-values should
-#' be included. Defaults to TRUE. If TRUE, \code{kruskal.test} p-values are
-#' produced for continuous variables and either \code{fisher.test} or
-#' \code{chisq.test} p-values are produced for categorical variables.
+#' be included. Defaults to TRUE. If TRUE, \code{stats::kruskal.test} p-values are
+#' produced for continuous variables and either \code{stats::fisher.test} or
+#' \code{stats::chisq.test} p-values are produced for categorical variables.
 #' See \code{param} for testing details for categorical variables.
-#' @param fisher takes the value TRUE or FALSE. If TRUE, \code{fisher.test}
-#' p-values are produced. If FALSE, \code{chisq.test} p-values are produced.
+#' @param fisher takes the value TRUE or FALSE. If TRUE, \code{stats::fisher.test}
+#' p-values are produced. If FALSE, \code{stats::chisq.test} p-values are produced.
 #'
 #' @return Returns a dataframe. If there are warnings or errors from
-#' \code{kruskal.test}, \code{fisher.test}, or \code{chisq.test} then NA is
+#' \code{stats::kruskal.test}, \code{stats::fisher.test}, or \code{stats::chisq.test} then NA is
 #' returned in place of the p-value.
 #'
 #' @export
@@ -325,7 +325,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
               }
 
               mats[[k]][1, ncol(mats[[k]])] <- round(
-                kruskal.test(dat[, contvars[[k]]] ~ as.factor(
+                stats::kruskal.test(dat[, contvars[[k]]] ~ as.factor(
                   dat[, byvar]))$p.value, 3)
               mats[[k]] <- as.data.frame(mats[[k]],
                                          stringsAsFactors = FALSE)
@@ -354,7 +354,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
               }
 
               mats[[k]][1, ncol(mats[[k]])] <- tryCatch({
-                round(kruskal.test(
+                round(stats::kruskal.test(
                   dat[, contvars[[k]]] ~
                     as.factor(dat[, byvar]))$p.value, 3)
               }, error = function(e) {
@@ -428,7 +428,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             if(fisher == TRUE) {
 
               mats[[k + nc]][1, ncol(mats[[k + nc]])] <- tryCatch(
-                round(fisher.test(dat[, catvars[[k]]],
+                round(stats::fisher.test(dat[, catvars[[k]]],
                                   dat[, byvar])$p.value, 3),
                 warning = function(w) {return(NA)},
                 error = function(e) {return(NA)})
@@ -437,7 +437,7 @@ tab1 <- function(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
             else if(fisher == FALSE) {
 
               mats[[k + nc]][1, ncol(mats[[k + nc]])] <- tryCatch(
-                round(chisq.test(dat[, catvars[[k]]],
+                round(stats::chisq.test(dat[, catvars[[k]]],
                                  dat[, byvar])$p.value, 3),
                 warning = function(w) {return(NA)},
                 error = function(e) {return(NA)})

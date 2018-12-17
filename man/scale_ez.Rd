@@ -66,5 +66,5 @@ scales, "top" or "bottom" for horizontal scales}
 }}
 }
 \description{
-See \url{ez_pal}.
+See \link{ez_pal}
 }

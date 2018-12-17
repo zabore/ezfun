@@ -13,12 +13,14 @@
 #'
 
 mvlogitres <- function(mod) {
-  or.ci <- paste0(round(exp(stats::coef(mod)[-1]), 2), " (",
-                  round(exp(stats::confint.default(mod)[-1, 1]), 2), " - ",
-                  round(exp(stats::confint.default(mod)[-1, 2]), 2), ")")
+  or.ci <- paste0(
+    round(exp(stats::coef(mod)[-1]), 2), " (",
+    round(exp(stats::confint.default(mod)[-1, 1]), 2), " - ",
+    round(exp(stats::confint.default(mod)[-1, 2]), 2), ")"
+  )
   p <- round(summary(mod)$coefficients[-1, 4], 3)
   res <- data.frame(or.ci, p, stringsAsFactors = F)
   res$p[res$p < 0.001] <- "<.001"
-  colnames(res) <- c('**OR (95% CI)**', '**p-value**')
+  colnames(res) <- c("**OR (95% CI)**", "**p-value**")
   return(res)
 }

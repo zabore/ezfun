@@ -13,12 +13,14 @@
 #'
 
 mvcoxres <- function(mod) {
-  hr.ci <- paste0(round(summary(mod)$conf.int[, 1], 2), " (",
-                  round(summary(mod)$conf.int[, 3], 2), ", ",
-                  round(summary(mod)$conf.int[, 4], 2), ")")
+  hr.ci <- paste0(
+    round(summary(mod)$conf.int[, 1], 2), " (",
+    round(summary(mod)$conf.int[, 3], 2), ", ",
+    round(summary(mod)$conf.int[, 4], 2), ")"
+  )
   p <- round(summary(mod)$coefficients[, 5], 3)
   res <- data.frame(hr.ci, p, stringsAsFactors = F)
   res$p[res$p < 0.001] <- "<.001"
-  colnames(res) <- c('**HR (95% CI)**', '**p-value**')
+  colnames(res) <- c("**HR (95% CI)**", "**p-value**")
   return(res)
 }

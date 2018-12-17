@@ -14,10 +14,11 @@
 #'
 
 lowerchar <- function(dfname) {
-
   data.frame(lapply(dfname, function(v) {
-
-    if (is.character(v)) return(trimws(tolower(v)))
-    else return(v)
+    if (is.character(v)) {
+      return(trimws(tolower(v)))
+    } else {
+      return(v)
+    }
   }), stringsAsFactors = F)
 }

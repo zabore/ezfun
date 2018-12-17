@@ -14,5 +14,5 @@
 #'
 
 tabna <- function(...) {
-  table(..., useNA = 'ifany')
+  table(..., useNA = "ifany")
 }

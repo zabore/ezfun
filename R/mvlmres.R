@@ -13,11 +13,13 @@
 #'
 
 mvlmres <- function(mod) {
-  est_se <- paste0(round(summary(mod)$coefficients[-1, 1], 2), " (",
-                   round(summary(mod)$coefficients[-1, 2], 2), ")")
+  est_se <- paste0(
+    round(summary(mod)$coefficients[-1, 1], 2), " (",
+    round(summary(mod)$coefficients[-1, 2], 2), ")"
+  )
   p <- round(summary(mod)$coefficients[-1, 4], 3)
   res <- data.frame(est_se, p, stringsAsFactors = F)
   res$p[res$p < 0.001] <- "<.001"
-  colnames(res) <- c('**Est (SE)**', '**p-value**')
+  colnames(res) <- c("**Est (SE)**", "**p-value**")
   return(res)
 }

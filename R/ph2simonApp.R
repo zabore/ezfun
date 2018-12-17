@@ -29,7 +29,8 @@ ph2simonApp <- function() {
             value = 0.1,
             min = 0,
             max = 1,
-            step = 0.05),
+            step = 0.05
+          ),
 
           shiny::numericInput(
             "num2",
@@ -37,7 +38,8 @@ ph2simonApp <- function() {
             value = 0.3,
             min = 0,
             max = 1,
-            step = 0.05),
+            step = 0.05
+          ),
 
           shiny::numericInput(
             "num3",
@@ -45,7 +47,8 @@ ph2simonApp <- function() {
             value = 0.05,
             min = 0,
             max = 1,
-            step = 0.05),
+            step = 0.05
+          ),
 
           shiny::numericInput(
             "num4",
@@ -53,7 +56,8 @@ ph2simonApp <- function() {
             value = 0.80,
             min = 0,
             max = 1,
-            step = 0.05)
+            step = 0.05
+          )
         ),
         shiny::mainPanel(
           shiny::h4("Results"),
@@ -78,7 +82,8 @@ ph2simonApp <- function() {
           input$num1,
           input$num2,
           input$num3,
-          (1 - input$num4))
+          (1 - input$num4)
+        )
         paste(
           "If you see more than",
           fun$out[which.min(fun$out[, 5]), 1],
@@ -103,7 +108,8 @@ ph2simonApp <- function() {
           input$num1,
           input$num2,
           input$num3,
-          (1 - input$num4))
+          (1 - input$num4)
+        )
         graphics::plot(fun)
       })
     }

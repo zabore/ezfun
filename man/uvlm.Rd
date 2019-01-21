@@ -18,12 +18,12 @@ e.g. list('Gender','Race')}
 \item{dat}{is the dataset for analysis}
 }
 \value{
-Returns a dataframe. If there are warnings or errors from \code{lm}
+Returns a dataframe. If there are warnings or errors from \code{\link[stats]{lm}}
 then blank rows are returned.
 }
 \description{
 \code{uvlm} takes lists of continuous and/or categorical variables, calls
-\code{lm} to run a linear regression model for each, and returns a table with
+\code{\link[stats]{lm}} to run a linear regression model for each, and returns a table with
 Est (SE) and p-value for each variable that is suitable for printing in a
 Word \code{R Markdown} file.
 }

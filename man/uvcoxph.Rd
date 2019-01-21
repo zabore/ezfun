@@ -21,11 +21,11 @@ uvcoxph(contvars, catvars, event, time, dat, strata = NULL)
 p-values. Defaults to NULL. Entries should be in quotes, e.g. "Surgeon"}
 }
 \value{
-Returns a dataframe. If there are warnings or errors from \code{coxph} then blank rows are returned.
+Returns a dataframe. If there are warnings or errors from \code{\link[survival]{coxph}} then blank rows are returned.
 }
 \description{
-\code{uvcoxph} takes lists of continuous and/or categorical variables, runs a univariable \code{coxph} model for
-each, and puts the resulting HR (95\% CI) and p-value into a table suitable for printing in a Word \code{R Markdown}
+\code{uvcoxph} takes lists of continuous and/or categorical variables, runs a univariable \code{\link[survival]{coxph}} model for
+each, and puts the resulting HR (95\% CI) and p-value into a table suitable for printing in a Word R Markdown
 file.
 }
 \author{

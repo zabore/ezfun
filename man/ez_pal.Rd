@@ -10,6 +10,5 @@ ez_pal()
 Basically copying code from hrbrmstr/hrbrthemes colors.r
 }
 \examples{
-library(scales)
 scales::show_col(ez_pal()(9))
 }

@@ -19,12 +19,12 @@ e.g. list('Gender','Race')}
 \item{dat}{is the dataset for analysis}
 }
 \value{
-Returns a dataframe. If there are warnings or errors from \code{glm}
+Returns a dataframe. If there are warnings or errors from \code{\link[stats]{glm}}
 then blank rows are returned.
 }
 \description{
 \code{uvlogit} takes lists of continuous and/or categorical variables, calls
-\code{glm} to run a logistic regression model for each, and returns a table with
+\code{\link[stats]{glm}} to run a logistic regression model for each, and returns a table with
 OR (95% CI) and p-value for each variable that is suitable for printing in a
 Word \code{R Markdown} file.
 }

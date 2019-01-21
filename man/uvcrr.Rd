@@ -20,18 +20,18 @@ e.g. list('Gender','Race')}
 \item{dat}{is the dataset for analysis}
 }
 \value{
-Returns a dataframe. If there are warnings or errors from \code{crr}
+Returns a dataframe. If there are warnings or errors from \code{\link[cmprsk]{crr}}
 then blank rows are returned.
 }
 \description{
 \code{uvcrr} takes lists of continuous and/or categorical variables, runs a
-univariable \code{crr} model for each, and puts the resulting HR (95\% CI)
-and p-value into a table suitable for printing in a Word \code{R Markdown}
+univariable \code{\link[cmprsk]{crr}} model for each, and puts the resulting HR (95\% CI)
+and p-value into a table suitable for printing in a Word R Markdown
 file.
 }
 \details{
-\code{uvcrr} uses all function defaults to \code{crr}. For example, the
-failure code is set to 1. See the help file for \code{crr} for additional
+\code{uvcrr} uses all function defaults to \code{\link[cmprsk]{crr}}. For example, the
+failure code is set to 1. See the help file for \code{\link[cmprsk]{crr}} for additional
 details.
 }
 \author{

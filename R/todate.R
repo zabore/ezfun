@@ -17,10 +17,11 @@
 #'
 
 todate <- function(dfname) {
-
   data.frame(lapply(dfname, function(v) {
-
-    if (inherits(v, "POSIXct")) return(as.Date(v))
-    else return(v)
+    if (inherits(v, "POSIXct")) {
+      return(as.Date(v))
+    } else {
+      return(v)
+    }
   }), stringsAsFactors = F)
 }

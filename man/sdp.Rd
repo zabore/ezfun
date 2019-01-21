@@ -7,14 +7,14 @@
 sdp(sd)
 }
 \arguments{
-\item{sd}{is a \code{survdiff} object}
+\item{sd}{is a \code{\link[survival]{survdiff}} object}
 }
 \value{
 Returns a p-value rounded to 3 digits or "<.001" if the p-value is
 <.001
 }
 \description{
-\code{sdp} returns the p-value from the \code{survdiff} function
+\code{sdp} returns the p-value from the \code{\link[survival]{survdiff}} function
 }
 \author{
 Emily C Zabor \email{zabore@mskcc.org}

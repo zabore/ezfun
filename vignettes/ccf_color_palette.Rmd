@@ -1,0 +1,174 @@
+---
+title: "CCF Color Palette"
+author: "Emily C. Zabor"
+date: "Last Updated: `r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ccf_color_palette}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ezfun)
+library(ggplot2)
+```
+
+
+## Introduction
+
+This vignette gives a short example on usage of the `ccf_color_palette` functionality. The goal of the `ccf_color_palette` functions is to give users access to Cleveland Clinic brand colors for use in plotting with `ggplot2`. 
+
+The code behind this color palette is largely based on the code from the Wes Anderson color palettes for R: [https://github.com/karthik/wesanderson](https://github.com/karthik/wesanderson) and a previous brand color palette I created at Memorial Sloan Kettering Cancer Center.
+
+
+## The colors
+
+Details about the CCF brand colors can be found at the [OnBrand website](https://onbrand.clevelandclinic.org/get-the-basics/#color-palette).
+
+On a basic level, the CCF brand colors are stored as named values. You can see a complete list:
+
+```{r}
+ccf_cols()
+```
+
+You can access the hex color for a specific color:
+
+```{r}
+ccf_cols("ccf_green")
+```
+
+You can access the hex color for multiple colors:
+
+```{r}
+ccf_cols("ccf_blue", "ccf_green")
+```
+
+
+## Palettes
+
+There are six color palettes available.
+
+You can view a list of the color names and hex codes for a specific color palette:
+
+```{r}
+ccf_palettes[["main"]]
+```
+
+And you can also view the colors in a plot window.
+
+### main
+
+The `main` color palette is based on the primary and seconary CCF brand colors.
+
+```{r fig.height = 1}
+ccf_palette("main")
+```
+
+### bright
+
+The `bright` color palette is based on the bright supplemental CCF brand colors.
+
+```{r fig.height = 1}
+ccf_palette("bright")
+```
+
+### neutral
+
+The `neutral` color palette is based on the neutral supplemental CCF brand colors.
+
+```{r fig.height = 1}
+ccf_palette("neutral")
+```
+
+### all
+
+The `all` color palette contains all colors from main, bright, and neutral for when a large number of colors are needed.
+
+```{r fig.height = 1}
+ccf_palette("all")
+```
+
+### blues
+
+The `blues` color palette only contains two colors and is meant to be used for continuous color scales where interpolation will be done between the high and low color.
+
+```{r fig.height = 1}
+ccf_palette("blues")
+```
+
+### greens
+
+Similarly, the `greens` color palette only contains two colors and is meant to be used for continuous color scales where interpolation will be done between the high and low color.
+
+```{r fig.height = 1}
+ccf_palette("greens")
+```
+
+
+## Plotting
+
+Functionality is available to plot single or multiple colors, discrete color scales, and continuous color scales.
+
+To use a single specific color, simply reference it by name.
+
+```{r}
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point(size = 4, color = ccf_cols("ccf_green"))
+```
+
+You can do the same to use multiple specific colors using `scale_color_manual`.
+
+```{r}
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(
+    values = ccf_cols(c("ccf_green", "seagull", "maroon_flush")))
+```
+
+To use the palettes, specify a palette by name as the `values` argument to `scale_color_manual` or `scale_fill_manual`. 
+
+```{r}
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(values = ccf_palette("main"))
+```
+
+```{r}
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(values = ccf_palette("bright"))
+```
+
+You can also pick and choose which colors you want by position in the palette.
+
+```{r}
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(values = ccf_palette("main")[c(1, 4, 6)])
+```
+
+The `scale_color_gradientn` function can be used to add colors on a continuous scale, by adding the option `type = "continuous"` to `ccf_palette()`. Interpolation between colors in the palette will be done to create a continuous scale, and this is intended for use with the `blues` and `greens` palettes.
+
+```{r}
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Petal.Length)) +
+  geom_point(size = 4) +
+  scale_color_gradientn(colors = ccf_palette("greens", type = "continuous"))
+```
+
+
+
+
+
+
+
+

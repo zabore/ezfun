@@ -1,0 +1,6 @@
+pandoc: '2.6'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  ccf_color_palette: ccf_color_palette.html
+

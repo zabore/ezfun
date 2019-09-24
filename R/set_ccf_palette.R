@@ -14,7 +14,7 @@
 #' @export
 #' @examples
 #' \donttest{
-#' ezfun::set_ccf_palette()
+#' ezfun::set_ccf_palette("main")
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point()

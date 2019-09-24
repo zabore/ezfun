@@ -30,8 +30,11 @@ set_ccf_palette <- function(palette = c("main", "bright", "neutral", "all",
                             reverse = FALSE, colors = NULL) {
   # choosing the CCF palette
   palette <-
-    colors %||%
-    ccf_palettes[[match.arg(palette)]]
+    ifelse(
+      is.null(colors),
+      ccf_palettes[[match.arg(palette)]],
+      colors
+      )
 
   # reversing palette if requested
   if (reverse == TRUE) palette <- rev(palette)

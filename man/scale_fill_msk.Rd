@@ -4,8 +4,7 @@
 \alias{scale_fill_msk}
 \title{Fill scale creator to add MSK brand colors in ggplot}
 \usage{
-scale_fill_msk(palette = "main", discrete = TRUE, reverse = FALSE,
-  ...)
+scale_fill_msk(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 }
 \arguments{
 \item{palette}{Character name of palette in msk_palettes, supplied in quotes.

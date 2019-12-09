@@ -4,8 +4,16 @@
 \alias{tab1}
 \title{Table 1}
 \usage{
-tab1(contvars, catvars, byvar, dat, col = TRUE, spread = "range",
-  pval = TRUE, fisher = TRUE)
+tab1(
+  contvars,
+  catvars,
+  byvar,
+  dat,
+  col = TRUE,
+  spread = "range",
+  pval = TRUE,
+  fisher = TRUE
+)
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows

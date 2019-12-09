@@ -90,7 +90,10 @@ ccf_palettes <- list(
     "mondo"
   ),
   `blues` = ccf_cols("ccf_blue", "botticelli"),
-  `greens` = ccf_cols("ccf_green", "surf_crest")
+  `greens` = ccf_cols("ccf_green", "surf_crest"),
+  `contrast` = ccf_cols("ccf_blue", "lightning_yellow", "maroon_flush",
+                        "ccf_green", "tango", "honey_flower",
+                        "wattle", "flamingo", "seagull", "jumbo")
 )
 
 

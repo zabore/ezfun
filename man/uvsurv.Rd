@@ -4,8 +4,16 @@
 \alias{uvsurv}
 \title{Table of univariable survival analysis results}
 \usage{
-uvsurv(contvars, catvars, event, time, test, dat, strata = NULL,
-  cuminc = FALSE)
+uvsurv(
+  contvars,
+  catvars,
+  event,
+  time,
+  test,
+  dat,
+  strata = NULL,
+  cuminc = FALSE
+)
 }
 \arguments{
 \item{contvars}{is a list of the continuous variables you want in the rows

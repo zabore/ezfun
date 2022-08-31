@@ -4,12 +4,14 @@
 \name{ccf_colors}
 \alias{ccf_colors}
 \title{Named list of CCF brand colors}
-\format{An object of class \code{character} of length 24.}
+\format{
+An object of class \code{character} of length 24.
+}
 \usage{
 ccf_colors
 }
 \description{
-This is named vector of the CCF brand color hex codes. Run `ccf_colors` to
+This is named vector of the CCF brand color hex codes. Run \code{ccf_colors} to
 see the names and hex codes for the CCF brand colors.
 }
 \keyword{datasets}

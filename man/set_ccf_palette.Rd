@@ -10,29 +10,29 @@ set_ccf_palette(palette = "all", reverse = FALSE, colors = NULL)
 \item{palette}{specify the color palette of interest. Default is "all".
 Other options include "main", "bright", "neutral", "blues", and "greens".}
 
+\item{reverse}{logical to reverse the color palette. Defaults to FALSE.}
+
 \item{colors}{an optional argument of hex colors in an unnamed vector.
-When provided the `palette = ` argument is overridden and the colors
-supplied will be used. Default is `NULL`.}
+When provided the \verb{palette = } argument is overridden and the colors
+supplied will be used. Default is \code{NULL}.}
 }
 \description{
 This function sets the CCF color palette as the default colors.  It does
-this by adding custom functions,`scale_colour_discrete()` and
-`scale_fill_discrete()`, to the global environment. A typical workflow would
+this by adding custom functions,\code{scale_colour_discrete()} and
+\code{scale_fill_discrete()}, to the global environment. A typical workflow would
 include this function at the top of a script, and subsequent calls to
-`ggplot()` will utilize the CCF color palette. This function was originally
+\code{ggplot()} will utilize the CCF color palette. This function was originally
 written by Michael Curry at MSK, and only modified here to utilize CCF
 colors. I also made a few minor changes
 }
 \examples{
-\donttest{
-ezfun::set_ccf_palette()
 library(ggplot2)
+set_ccf_palette()
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point()
 
 # using the color argument to select a few from the CCF color palette
-ezfun::set_ccf_palette(colors = ezfun::ccf_palettes[["main"]][c(2,5,6)])
+set_ccf_palette(colors = ccf_palettes[["main"]][c(2,5,6)])
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point()
-}
 }

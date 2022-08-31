@@ -51,26 +51,26 @@ margin}
 
 \item{axis_title_face, axis_title_size}{axis title font face and size}
 
-\item{axis_title_just}{axis title font justification, one of `[blmcrt]`. Defauls to "cc"}
+\item{axis_title_just}{axis title font justification, one of \verb{[blmcrt]}. Defauls to "cc"}
 
-\item{plot_margin}{plot margin (specify with [ggplot2::margin()])}
+\item{plot_margin}{plot margin (specify with \code{\link[ggplot2:element]{ggplot2::margin()}})}
 
-\item{grid_col, axis_col}{grid & axis colors; both default to `#cccccc`}
+\item{grid_col, axis_col}{grid & axis colors; both default to \verb{#cccccc}}
 
-\item{grid}{panel grid (`TRUE`, `FALSE`, or a combination of `X`, `x`, `Y`,
-`y`)}
+\item{grid}{panel grid (\code{TRUE}, \code{FALSE}, or a combination of \code{X}, \code{x}, \code{Y},
+\code{y})}
 
-\item{axis}{add x or y axes? `TRUE`, `FALSE`, "`xy`"}
+\item{axis}{add x or y axes? \code{TRUE}, \code{FALSE}, "\code{xy}"}
 
-\item{ticks}{ticks if `TRUE` add ticks}
+\item{ticks}{ticks if \code{TRUE} add ticks}
 
-\item{legend_title}{includes legend title if `TRUE`, defaults to `FALSE`}
+\item{legend_title}{includes legend title if \code{TRUE}, defaults to \code{FALSE}}
 
-\item{legend_bottom}{places legend at bottom if `TRUE`, places legend to
-default position if `FALSE`}
+\item{legend_bottom}{places legend at bottom if \code{TRUE}, places legend to
+default position if \code{FALSE}}
 
-\item{legend_just}{legend justification, one of `right`, `left`, `center`.
-Defaults to `center`.}
+\item{legend_just}{legend justification, one of \code{right}, \code{left}, \code{center}.
+Defaults to \code{center}.}
 }
 \description{
 Basic theme preferences for ggplot. Functionally a crib of

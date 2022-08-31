@@ -10,22 +10,25 @@
 #'
 #' @param palette specify the color palette of interest. Default is "all".
 #' Other options include "main", "bright", "neutral", "blues", and "greens".
+#' @param reverse logical to reverse the color palette. Defaults to FALSE.
 #' @param colors an optional argument of hex colors in an unnamed vector.
 #' When provided the `palette = ` argument is overridden and the colors
 #' supplied will be used. Default is `NULL`.
+#'
+#' @import ggplot2
+#'
 #' @export
+#'
 #' @examples
-#' \donttest{
-#' ezfun::set_ccf_palette()
 #' library(ggplot2)
+#' set_ccf_palette()
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point()
 #'
 #' # using the color argument to select a few from the CCF color palette
-#' ezfun::set_ccf_palette(colors = ezfun::ccf_palettes[["main"]][c(2,5,6)])
+#' set_ccf_palette(colors = ccf_palettes[["main"]][c(2,5,6)])
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point()
-#' }
 
 set_ccf_palette <- function(palette = "all", reverse = FALSE, colors = NULL) {
 

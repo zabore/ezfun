@@ -1,0 +1,34 @@
+---
+title: "{{stringr::str_replace_all(folder_name, stringr::fixed('-'), stringr::fixed(' '))}} Project Report"
+author: "Emily C. Zabor"
+date: "Last updated: `r Sys.Date()`"
+output: 
+  word_document:
+    reference_docx: !expr here::here('code/templates/doc_template.docx')
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  error = FALSE, 
+  warning = FALSE, 
+  message = FALSE)
+
+# load commonly used packages
+library(ezfun)
+library(tidyverse)
+library(gtsummary)
+library(survival)
+library(survminer)
+
+# set the ccf color palette for all ggplots
+set_ccf_palette()
+```
+
+# Background
+
+
+# Methods
+
+
+# Results

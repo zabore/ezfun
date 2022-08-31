@@ -4,7 +4,9 @@
 \name{ccf_palettes}
 \alias{ccf_palettes}
 \title{CCF branded color palettes}
-\format{An object of class \code{list} of length 7.}
+\format{
+An object of class \code{list} of length 7.
+}
 \usage{
 ccf_palettes
 }

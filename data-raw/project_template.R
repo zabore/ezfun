@@ -34,7 +34,7 @@ ez_analysis_template <-
     munge = rlang::expr(list(
       template_filename = fs::path_package("project_templates/01-munge.R",
                                            package = "ezfun"),
-      filename = glue::glue("code/{folder_name}_01-munge.Rmd"),
+      filename = glue::glue("code/{folder_name}_01-munge.R"),
       copy = FALSE
     )),
     report = rlang::expr(list(

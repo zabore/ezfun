@@ -6,11 +6,9 @@ library(readr)
 
 # Import Data ------------------------------------------------------------------
 
-raw_file_name <- ""
-
 df0 <-
   read_csv(
-    file = here::here("data", raw_file_name)
+    file = here::here("data", ".csv")
   ) %>%
   janitor::clean_names() %>%
   janitor::remove_empty()
@@ -35,7 +33,7 @@ df <-
 # Save Data --------------------------------------------------------------------
 save(
   df,
-  path = here::here("data", paste0("raw_file_name", "_data.rda")))
+  file = here::here("data", ".rda"))
 
 
 # Data Checks  -----------------------------------------------------------------

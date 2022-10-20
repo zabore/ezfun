@@ -16,10 +16,8 @@ knitr::opts_chunk$set(
 
 # load commonly used packages
 library(ezfun)
-library(tidyverse)
+library(ggplot2)
 library(gtsummary)
-library(survival)
-library(survminer)
 
 # set the ccf color palette for all ggplots
 set_ccf_palette()

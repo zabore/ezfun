@@ -1,6 +1,6 @@
-^.*\.Rproj$
-^\.Rproj\.user$
 ^docs$
 ^doc$
 ^Meta$
 ^data-raw$
+^ezfun\.Rproj$
+^\.Rproj\.user$

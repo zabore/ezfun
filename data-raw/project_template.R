@@ -38,9 +38,9 @@ ez_analysis_template <-
       copy = FALSE
     )),
     report = rlang::expr(list(
-      template_filename = fs::path_package("project_templates/02-report.Rmd",
+      template_filename = fs::path_package("project_templates/02-report.qmd",
                                            package = "ezfun"),
-      filename = glue::glue("code/{folder_name}-report.Rmd"),
+      filename = glue::glue("code/{folder_name}-report.qmd"),
       copy = FALSE
     )),
     doc_template = rlang::expr(list(

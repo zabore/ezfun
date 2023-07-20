@@ -50,3 +50,11 @@ ez_analysis_template <-
       copy = TRUE
     ))
     )
+
+
+# Create template object -----
+
+project_templates <- list()
+project_templates[["ez_analysis"]] <- ez_analysis_template
+
+usethis::use_data(project_templates, overwrite = TRUE)

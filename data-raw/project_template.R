@@ -53,8 +53,6 @@ ez_analysis_template <-
 
 
 # Create template object -----
+attr(ez_analysis_template, "label") <- "EZ Analysis Template"
 
-project_templates <- list()
-project_templates[["ez_analysis"]] <- ez_analysis_template
-
-usethis::use_data(project_templates, overwrite = TRUE)
+usethis::use_data(ez_analysis_template, overwrite = TRUE)

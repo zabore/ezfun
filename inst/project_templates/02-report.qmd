@@ -4,7 +4,7 @@ author: "Emily C. Zabor"
 date: "Last updated: `r Sys.Date()`"
 format: 
   docx:
-    reference-doc: !expr here::here('code/templates/doc_template.docx')
+    reference-doc: templates/doc_template.docx
 execute: 
   echo: false
   message: false

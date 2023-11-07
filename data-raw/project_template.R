@@ -7,12 +7,6 @@ ez_analysis_template <-
       filename = "README.md",
       copy = FALSE
     )),
-    gitignore = rlang::expr(list(
-      template_filename = fs::path_package("project_templates/gitignore.txt",
-                                           package = "ezfun"),
-      filename = ".gitignore",
-      copy = TRUE
-    )),
     rproj = rlang::expr(list(
       template_filename = fs::path_package("project_templates/default_rproj.Rproj",
                                            package = "ezfun"),

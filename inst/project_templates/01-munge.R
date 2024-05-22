@@ -9,14 +9,14 @@ library(readr)
 df0 <-
   read_csv(
     file = here::here("data", ".csv")
-  ) %>%
-  janitor::clean_names() %>%
+  )  |>
+  janitor::clean_names() |>
   janitor::remove_empty()
 
 
 # Clean Data -------------------------------------------------------------------
 df <-
-  df0 %>%
+  df0 |>
   mutate(
 
   )
@@ -24,7 +24,7 @@ df <-
 
 # label data
 df <-
-  df %>%
+  df |>
   labelled::set_variable_labels(
 
   )

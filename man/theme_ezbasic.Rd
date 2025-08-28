@@ -18,7 +18,7 @@ theme_ezbasic(
   caption_face = "plain",
   caption_margin = 10,
   axis_text_size = base_size,
-  axis_title_size = 9,
+  axis_title_size = 11.5,
   axis_title_face = "plain",
   axis_title_just = "cc",
   plot_margin = ggplot2::margin(10, 10, 10, 10),

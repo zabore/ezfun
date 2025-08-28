@@ -59,6 +59,7 @@ theme_ezbasic <- function(base_size = 11.5,
 
   ret <- ret + ggplot2::theme(legend.background = ggplot2::element_blank())
   ret <- ret + ggplot2::theme(legend.key = ggplot2::element_blank())
+  ret <- ret + ggplot2::theme(legend.text = ggplot2::element_text(size = base_size))
 
   if (inherits(grid, "character") | grid == TRUE) {
     ret <- ret + ggplot2::theme(panel.grid = ggplot2::element_line(color = grid_col, size = 0.2))

@@ -62,14 +62,22 @@ theme_ezbasic <- function(base_size = 11.5,
   ret <- ret + ggplot2::theme(legend.text = ggplot2::element_text(size = base_size))
 
   if (inherits(grid, "character") | grid == TRUE) {
-    ret <- ret + ggplot2::theme(panel.grid = ggplot2::element_line(color = grid_col, size = 0.2))
-    ret <- ret + ggplot2::theme(panel.grid.major = ggplot2::element_line(
-      color = grid_col,
-      size = 0.2
-    ))
-    ret <- ret + ggplot2::theme(panel.grid.minor = ggplot2::element_line(
-      color = grid_col,
-      size = 0.15
+    ret <- ret +
+      ggplot2::theme(
+        panel.grid = ggplot2::element_line(
+          color = grid_col,
+          linewidth = 0.2)
+        )
+    ret <- ret +
+      ggplot2::theme(
+        panel.grid.major = ggplot2::element_line(
+          color = grid_col,
+          linewidth = 0.2)
+        )
+    ret <- ret +
+      ggplot2::theme(panel.grid.minor = ggplot2::element_line(
+        color = grid_col,
+        linewidth = 0.15
     ))
 
     if (inherits(grid, "character")) {
@@ -127,76 +135,140 @@ theme_ezbasic <- function(base_size = 11.5,
 
 
   if (inherits(axis, "character") | axis == TRUE) {
-    ret <- ret + ggplot2::theme(axis.line = ggplot2::element_line(color = "#2b2b2b", size = 0.15))
+    ret <- ret +
+      ggplot2::theme(axis.line = ggplot2::element_line(
+        color = "#2b2b2b",
+        linewidth = 0.15)
+        )
     if (inherits(axis, "character")) {
       axis <- tolower(axis)
       if (regexpr("x", axis)[1] < 0) {
-        ret <- ret + ggplot2::theme(axis.line.x = ggplot2::element_blank())
+        ret <- ret +
+          ggplot2::theme(axis.line.x = ggplot2::element_blank())
       } else {
-        ret <- ret + ggplot2::theme(axis.line.x = ggplot2::element_line(color = axis_col, size = 0.15))
+        ret <- ret +
+          ggplot2::theme(axis.line.x = ggplot2::element_line(
+            color = axis_col,
+            linewidth = 0.15)
+          )
       }
       if (regexpr("y", axis)[1] < 0) {
-        ret <- ret + ggplot2::theme(axis.line.y = ggplot2::element_blank())
+        ret <- ret +
+          ggplot2::theme(axis.line.y = ggplot2::element_blank())
       } else {
-        ret <- ret + ggplot2::theme(axis.line.y = ggplot2::element_line(color = axis_col, size = 0.15))
+        ret <- ret +
+          ggplot2::theme(axis.line.y = ggplot2::element_line(
+            color = axis_col,
+            linewidth = 0.15)
+          )
       }
     } else {
-      ret <- ret + ggplot2::theme(axis.line.x = ggplot2::element_line(color = axis_col, size = 0.15))
-      ret <- ret + ggplot2::theme(axis.line.y = ggplot2::element_line(color = axis_col, size = 0.15))
+      ret <- ret +
+        ggplot2::theme(axis.line.x = ggplot2::element_line(
+          color = axis_col,
+          linewidth = 0.15)
+        )
+      ret <- ret +
+        ggplot2::theme(axis.line.y = ggplot2::element_line(
+          color = axis_col,
+          linewidth = 0.15)
+        )
     }
   } else {
     ret <- ret + ggplot2::theme(axis.line = ggplot2::element_blank())
   }
 
   if (!ticks) {
-    ret <- ret + ggplot2::theme(axis.ticks = ggplot2::element_blank())
-    ret <- ret + ggplot2::theme(axis.ticks.x = ggplot2::element_blank())
-    ret <- ret + ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
+    ret <- ret +
+      ggplot2::theme(axis.ticks = ggplot2::element_blank())
+    ret <- ret +
+      ggplot2::theme(axis.ticks.x = ggplot2::element_blank())
+    ret <- ret +
+      ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
   } else {
-    ret <- ret + ggplot2::theme(axis.ticks = ggplot2::element_line(size = 0.15))
-    ret <- ret + ggplot2::theme(axis.ticks.x = ggplot2::element_line(size = 0.15))
-    ret <- ret + ggplot2::theme(axis.ticks.y = ggplot2::element_line(size = 0.15))
-    ret <- ret + ggplot2::theme(axis.ticks.length = grid::unit(5, "pt"))
+    ret <- ret +
+      ggplot2::theme(axis.ticks = ggplot2::element_line(
+        linewidth = 0.15)
+        )
+    ret <- ret +
+      ggplot2::theme(axis.ticks.x = ggplot2::element_line(
+        linewidth = 0.15)
+        )
+    ret <- ret +
+      ggplot2::theme(axis.ticks.y = ggplot2::element_line(
+        linewidth = 0.15)
+        )
+    ret <- ret +
+      ggplot2::theme(axis.ticks.length = grid::unit(5, "pt"))
   }
 
-  xj <- switch(tolower(substr(axis_title_just, 1, 1)), b = 0, l = 0, m = 0.5, c = 0.5, r = 1, t = 1)
-  yj <- switch(tolower(substr(axis_title_just, 2, 2)), b = 0, l = 0, m = 0.5, c = 0.5, r = 1, t = 1)
+  xj <- switch(tolower(substr(axis_title_just, 1, 1)),
+               b = 0, l = 0, m = 0.5, c = 0.5, r = 1, t = 1)
+  yj <- switch(tolower(substr(axis_title_just, 2, 2)),
+               b = 0, l = 0, m = 0.5, c = 0.5, r = 1, t = 1)
 
-  ret <- ret + ggplot2::theme(axis.text.x = ggplot2::element_text(size = axis_text_size, margin = ggplot2::margin(t = 0)))
-  ret <- ret + ggplot2::theme(axis.text.y = ggplot2::element_text(size = axis_text_size, margin = ggplot2::margin(r = 0)))
-  ret <- ret + ggplot2::theme(axis.title = ggplot2::element_text(size = axis_title_size))
-  ret <- ret + ggplot2::theme(axis.title.x = ggplot2::element_text(
-    hjust = xj, size = axis_title_size,
-    face = axis_title_face
-  ))
-  ret <- ret + ggplot2::theme(axis.title.y = ggplot2::element_text(
-    hjust = yj, size = axis_title_size,
-    face = axis_title_face
-  ))
-  ret <- ret + ggplot2::theme(axis.title.y.right = ggplot2::element_text(
-    hjust = yj, size = axis_title_size, angle = 90,
-    face = axis_title_face
-  ))
-  ret <- ret + ggplot2::theme(strip.text = ggplot2::element_text(
-    hjust = 0, size = strip_text_size,
-    face = strip_text_face
-  ))
-  ret <- ret + ggplot2::theme(panel.spacing = grid::unit(2, "lines"))
-  ret <- ret + ggplot2::theme(plot.title = ggplot2::element_text(
-    hjust = 0, size = plot_title_size,
-    margin = ggplot2::margin(b = plot_title_margin),
-    face = plot_title_face
-  ))
-  ret <- ret + ggplot2::theme(plot.subtitle = ggplot2::element_text(
-    hjust = 0, size = subtitle_size,
-    margin = ggplot2::margin(b = subtitle_margin),
-    face = subtitle_face
-  ))
-  ret <- ret + ggplot2::theme(plot.caption = ggplot2::element_text(
-    hjust = 1, size = caption_size,
-    margin = ggplot2::margin(t = caption_margin),
-    face = caption_face
-  ))
+  ret <- ret +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(
+      size = axis_text_size,
+      margin = ggplot2::margin(t = 0))
+      )
+  ret <- ret +
+    ggplot2::theme(axis.text.y = ggplot2::element_text(
+      size = axis_text_size,
+      margin = ggplot2::margin(r = 0))
+      )
+  ret <- ret +
+    ggplot2::theme(axis.title = ggplot2::element_text(
+      size = axis_title_size)
+    )
+  ret <- ret +
+    ggplot2::theme(axis.title.x = ggplot2::element_text(
+      hjust = xj,
+      size = axis_title_size,
+      face = axis_title_face)
+      )
+  ret <- ret +
+    ggplot2::theme(axis.title.y = ggplot2::element_text(
+      hjust = yj,
+      size = axis_title_size,
+      face = axis_title_face)
+      )
+  ret <- ret +
+    ggplot2::theme(axis.title.y.right = ggplot2::element_text(
+      hjust = yj,
+      size = axis_title_size,
+      angle = 90,
+      face = axis_title_face)
+      )
+  ret <- ret +
+    ggplot2::theme(strip.text = ggplot2::element_text(
+      hjust = 0,
+      size = strip_text_size,
+      face = strip_text_face)
+      )
+  ret <- ret +
+    ggplot2::theme(panel.spacing = grid::unit(2, "lines"))
+  ret <- ret +
+    ggplot2::theme(plot.title = ggplot2::element_text(
+      hjust = 0,
+      size = plot_title_size,
+      margin = ggplot2::margin(b = plot_title_margin),
+      face = plot_title_face)
+      )
+  ret <- ret +
+    ggplot2::theme(plot.subtitle = ggplot2::element_text(
+      hjust = 0,
+      size = subtitle_size,
+      margin = ggplot2::margin(b = subtitle_margin),
+      face = subtitle_face)
+      )
+  ret <- ret +
+    ggplot2::theme(plot.caption = ggplot2::element_text(
+      hjust = 1,
+      size = caption_size,
+      margin = ggplot2::margin(t = caption_margin),
+      face = caption_face)
+      )
   ret <- ret + ggplot2::theme(plot.margin = plot_margin)
 
   ret
